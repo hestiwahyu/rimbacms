@@ -1,5 +1,8 @@
 <?php
 
+// Autor : Hesti Wahyu Nugroho
+// Web : https://rimbamedia.com
+
 class SubscribeController extends Controller {
 
     public function index($f3) {

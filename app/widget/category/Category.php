@@ -1,5 +1,8 @@
 <?php
 
+// Autor : Hesti Wahyu Nugroho
+// Web : https://rimbamedia.com
+
 final class Category extends Prefab {
 
 	protected $f3;

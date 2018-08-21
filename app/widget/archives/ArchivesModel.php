@@ -1,5 +1,8 @@
 <?php
 
+// Autor : Hesti Wahyu Nugroho
+// Web : https://rimbamedia.com
+
 class ArchivesModel extends DB\SQL\Mapper {
 
     protected $dbname;

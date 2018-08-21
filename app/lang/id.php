@@ -1,5 +1,8 @@
 <?php
 
+// Autor : Hesti Wahyu Nugroho
+// Web : https://rimbamedia.com
+
 $_lang = array(
 	'about'                      => 'Tentang',
 	'address' => 'Alamat',

@@ -1,4 +1,8 @@
 <?php
+
+// Autor : Hesti Wahyu Nugroho
+// Web : https://rimbamedia.com
+
 final class Visitor extends Prefab {
 
 	function ip_user() {

@@ -1,4 +1,8 @@
 <?php
+
+// Autor : Hesti Wahyu Nugroho
+// Web : https://rimbamedia.com
+
 final class Selo extends Prefab {
 
     function cutText($text, $length, $mode = 2) {
