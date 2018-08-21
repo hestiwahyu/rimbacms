@@ -1,0 +1,41 @@
+<div class="modal-header">
+	<h5 class="modal-title">View Data</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+	<table class="table-valign-top">
+		<tr>
+			<td>Title</td>
+			<td>:</td>
+			<td><?=@$data['title']?></td>
+		</tr>
+		<tr>
+			<td>Position</td>
+			<td>:</td>
+			<td><?=@$data['position']?></td>
+		</tr>
+		<tr>
+			<td>Component</td>
+			<td>:</td>
+			<td><?=@$data['component']?></td>
+		</tr>
+		<tr>
+			<td>Sort</td>
+			<td>:</td>
+			<td><?=@$data['wsort']?></td>
+		</tr>
+		<tr>
+			<td>Content</td>
+			<td>:</td>
+			<td><?=@$data['wtext']?></td>
+		</tr>
+		<tr>
+			<td>Active</td>
+			<td>:</td>
+			<td><?=@$data['active']?></td>
+		</tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+</div>

@@ -1,0 +1,101 @@
+<div class="modal-header">
+	<h5 class="modal-title"><?=(@$data['id'])?'Edit':'Add';?> Data</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<form id="formData" method="POST" action="<?=$BASE?>/awidget/saveData/<?=@$data['id']?>">
+<div class="modal-body">
+	<table class="table table-valign-top">
+		<tr>
+			<td>Component</td>
+			<td>:</td>
+			<td>
+				<select name="widget_component_id" class="form-control" id="widget_component_id" required>
+					<option value="0">- Pilih -</option>
+					<?php if($comp!=null) {
+						foreach($comp as $r) { ?>
+						<option value="<?=$r['id']?>" <?=(@$data['component_id']&&$data['component_id']==$r['id'])?'selected':'';?>><?=$r['title']?></option>
+						<?php }
+					}?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Title</td>
+			<td>:</td>
+			<td><input name="widget_title" class="form-control" value="<?=@$data['title']?>" required></td>
+		</tr>
+		<tr id="textarea-content">
+			<td>Content</td>
+			<td>:</td>
+			<td><textarea name="widget_text" class="form-control text_editor"><?=@$data['wtext']?></textarea></td>
+		</tr>
+		<tr>
+			<td>Position</td>
+			<td>:</td>
+			<td>
+				<input name="widget_position" type="radio" value="L" <?=(@$data['position']&&$data['position']=='L')?'checked':'';?>> Left
+				<input name="widget_position" type="radio" value="R" <?=(@$data['position']&&$data['position']=='R')?'checked':'';?>> Right
+				<input name="widget_position" type="radio" value="B" <?=(@$data['position']&&$data['position']=='B')?'checked':'';?>> Home
+			</td>
+		</tr>
+		<tr>
+			<td>Sort</td>
+			<td>:</td>
+			<td><input name="widget_sort" class="form-control" value="<?=@$data['wsort']?>" type="number" onKeyPress="return angkadanhuruf(event,'0123456789',this)"></td>
+		</tr>
+		<tr>
+			<td>Active</td>
+			<td>:</td>
+			<td>
+				<input name="widget_active" type="radio" value="N" <?=(@$data['active']&&$data['active']=='N')?'checked':'';?>> No
+				<input name="widget_active" type="radio" value="Y" <?=(@$data['active']&&$data['active']=='Y')?'checked':'';?>> Yes
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-default"><i class="fa fa-save"></i> Save</button>
+	<button type="reset" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+</div>
+</form>
+
+<script type="text/javascript">
+	$('#formData').submit(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr('action'),
+			type: 'POST',
+			data: $(this).serialize(),
+			dataType: 'JSON',
+			success: function(data) {
+				if(data._redirect==true) {
+					LoadPage(data._page);
+					LoadNotifikasi('success','<b>' + information + '</b><br>' + data._pesan);
+				}else {
+					LoadNotifikasi('danger','<b>' + warning + '</b><br>' + data._pesan);
+				}
+			}
+		});
+	});
+
+	$('#submit').on('click', function() {
+		$('#formData').submit();
+	});
+
+	$('#textarea-content').hide();
+	textareaShow();
+	$('#widget_component_id').on('change',function(){
+		textareaShow();
+	});
+
+	function textareaShow() {
+		var comp_id = $('#widget_component_id option:selected').text();
+		if(comp_id=='textarea'){
+			$('#textarea-content').show();
+		}else{
+			$('#textarea-content').hide();
+		}
+	}
+
+	textarea.ckeditor_komentar('.text_editor');
+</script>

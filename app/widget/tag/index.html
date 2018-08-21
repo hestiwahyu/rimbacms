@@ -1,0 +1,11 @@
+<div class="p-3 widget-tag">
+	<h1><?=$title?></h1>
+	<div class="list-unstyled mb-0">
+		<?php if($data!=null){
+			foreach($data as $r){ ?>
+			<a href="<?=$BASE?>/tag/<?=$r['seotitle']?>" title="<?=ucwords($r['title'])?>"><span class="badge"><?=ucwords($r['title'])?> (<?=$r['count']?>)</span></a>
+			<?php }
+		}?>
+	</div>
+	<div class="clearfix"></div>
+</div>

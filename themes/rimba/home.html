@@ -1,0 +1,251 @@
+<!-- slider -->
+<div class="slider index2">
+	<div class="slider-headline owl-carousel owl-theme">
+		<?php
+		$headline = Rimba::instance()->getHeadline('5','publishdate DESC');
+		if($headline!=null){
+			$i = 1;
+			foreach($headline as $r){ 
+			$active = ($i==1)?'active':''; ?>
+			<div class="single-slide <?=$active?>" style="background-image:url(<?=$BASE?>/images/<?=$r['picture']?>);">
+				<div class="slider-overlay"></div>
+				<div class="slider-text">
+					<div class="slider-wraper">
+						<h1><?=$r['title']?></h1>
+						<p><?=Selo::instance()->cutText($r['content'],250)?></p>
+						<ul>
+							<li><a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=ucwords(strip_tags($r['title']))?>"><?=Selo::instance()->setLang('continue_reading')?></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<?php $i++; }
+		}?>
+	</div>
+</div>
+<!-- slider -->
+
+<!-- about -->
+<div class="about-sec pt-100 pb-100">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7">
+				<div class="about-desc">
+					<?php $about = Rimba::instance()->getPagesBy('about');?>
+					<div class="sec-title">
+						<h1>
+							<?php if(@$about['title']){
+								$lang = strtolower(Selo::instance()->setLang('about'));
+								$title = str_replace($lang,'<span>'.ucwords($lang).'</span>',strtolower($about['title']));
+								echo ucwords($title);
+							} ?>
+						</h1>
+						<p><?=Selo::instance()->cutText($about['content'],450)?></p>
+						<a href="<?=$BASE?>/<?=$about['seotitle']?>" title="<?=ucwords(strip_tags($about['title']))?>"><?=Selo::instance()->setLang('continue_reading')?> <i class="fa fa-angle-right"></i></a>
+					</div>
+					<div class="about-countup">
+						<div class="counting-inner">
+							<div class="countup-text">
+								<h2 class="counter"><?=Rimba::instance()->setting('project_done')?></h2>
+								<h4><?=Selo::instance()->setLang('project_done')?></h4>
+							</div>
+						</div>
+						<div class="counting-inner">
+							<div class="countup-text">
+								<h2 class="counter"><?=Rimba::instance()->setting('happy_client')?></h2>
+								<h4><?=Selo::instance()->setLang('happy_client')?></h4>
+							</div>
+						</div>
+						<div class="counting-inner">
+							<div class="countup-text">
+								<h2 class="counter"><?=Rimba::instance()->setting('our_product')?></h2>
+								<h4><?=Selo::instance()->setLang('our_product')?></h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="about-us-img">
+					<img src="<?=$BASE?>/images/<?=@$about['picture']?>" alt="<?=ucwords(strip_tags($about['title']))?>"/>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- about -->
+
+<!-- our service -->
+<?php
+$category = Rimba::instance()->getCategoryBy('service');
+?>
+<div class="why-choose why-choos-bg" style="background-image: url(<?=$BASE?>/images/<?=$category['picture']?>);">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+			</div>
+			<div class="col-md-6">
+				<div class="row why-choose-us-before">
+					<div class="sec-title col-md-12">
+						<h1>
+							<?php
+								$lang = strtolower(Selo::instance()->setLang('service'));
+								$title = str_replace($lang,'<span>'.ucwords($lang).'</span>',strtolower(Selo::instance()->setLang('our_service')));
+								echo ucwords($title);
+							?>
+						</h1>
+					</div>
+					<?php
+					$service = Rimba::instance()->getPostByCategory('service',4);
+					if($service!=null){
+						foreach($service as $r){ ?>
+							<div class="col-md-6 col-sm-6">
+								<div class="why-choose-item">
+									<div class="media">
+									  <div class="why-choose-icon">
+										<a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=ucwords(strip_tags($r['title']))?>">
+											<?php if($r['picture']!=null && $r['picture']!=''){ ?>
+											<img class="blog-img" src="<?=$BASE?>/images/thumb/<?=$r['picture']?>" alt="<?=ucwords(strip_tags($r['title']))?>">
+											<?php }?>
+										</a>
+									  </div>
+									  <div class="media-body">
+										<h2><a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=ucwords(strip_tags($r['title']))?>"><?=ucwords($r['title'])?></a></h2>
+										<p><?=Selo::instance()->cutText($r['content'],100)?></p>
+									  </div>
+									</div>
+								</div>
+							</div>
+						<?php }
+					}
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- our service -->
+
+<!-- testimoni -->
+<div class="testimonial-sec pt-100 pb-100" style="background-image: url(<?=$BASE?>/images/<?=Rimba::instance()->setting('img_home_testimoni')?>);">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="testimonial-text">
+					<span class="tst-sbtitle"><?=Selo::instance()->setLang('whats_say_about_our_client')?></span>
+					<div class="sec-title">
+						<h1>
+							<?php
+								$lang = strtolower(Selo::instance()->setLang('client'));
+								$title = str_replace($lang,'<span>'.ucwords($lang).'</span>',strtolower(Selo::instance()->setLang('client_review')));
+								echo ucwords($title);
+							?>
+						</h1>
+					</div>
+					<p><?=Selo::instance()->setLang('client_review_desc')?></p>
+					<a href="<?=$BASE?>/testimoni"><?=Selo::instance()->setLang('see_all')?></a>
+				</div>
+			</div>
+			<div class="col-md-8 no-padding">
+				<div class="owl-carousel slider-testimonial">
+					<?php if($testimoni!=null){
+						foreach($testimoni as $r){ ?>
+						<div class="single-testimonial2">
+							<p><?=$r['ttext']?></p>
+							<div class="testimonial2">
+								<div class="inner">
+									<div class="client-info">
+										<h2><?=$r['name']?></h2>
+										<h3><?=$r['job']?></h3>
+									</div>
+								</div>
+								<?php if($r['picture']!=null && $r['picture']!=''){ ?>
+								<div class="inner">
+									<div class="testimonial2-client-img">
+										<img src="<?=$BASE?>/images/thumb/<?=$r['picture']?>" alt="<?=$r['name']?>"/>
+									</div>
+								</div>
+								<?php }?>
+							</div>
+						</div>
+						<?php }
+					}?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- testimoni -->
+
+<!-- recent news -->
+<div class="blog-sec pt-100 pb-80">
+	<div class="container">	
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="sec-title">
+					<h1>
+						<?php
+							$lang = strtolower(Selo::instance()->setLang('recent'));
+							$title = str_replace($lang,'<span>'.ucwords($lang).'</span>',strtolower(Selo::instance()->setLang('recent_news')));
+							echo ucwords($title);
+						?>
+					</h1>
+					<p><?=Selo::instance()->setLang('recent_news_desc')?> <a href="<?=$BASE?>/subscribe"><?=Selo::instance()->setLang('subscribe')?></a></p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<?php
+			$posts = Rimba::instance()->getPost('3','publishdate DESC');
+			if($posts != null){
+				foreach($posts as $r){ ?>
+				<div class="col-md-4 col-sm-6">	
+					<div class="media">
+						<div class="single-post">
+							<div class="blog-thumb">
+								<?php if($r['picture']!=null && $r['picture']!=''){ ?>
+								<img class="blog-img" src="<?=$BASE?>/images/thumb/<?=$r['picture']?>" alt="<?=ucwords(strip_tags($r['title']))?>">
+								<?php }else{ ?>
+								<img class="blog-img" src="<?=$BASE?>/images/thumb/default.png" alt="<?=ucwords(strip_tags($r['title']))?>">
+								<?php } ?>
+								<a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=ucwords(strip_tags($r['title']))?>"><?=Selo::instance()->setLang('continue_reading')?></a>
+							</div>
+							<div class="media-body">
+								<div class="single-post-desc">
+									<h2 class="single-post-title">
+										<a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=ucwords(strip_tags($r['title']))?>">
+											<?=$r['title']?>
+										</a>
+									</h2>
+									<div class="post-date">
+										<ul>
+											<li><a href="#"><i class="fa fa-calendar"></i><?=date('F d, Y',strtotime($r['pdate']))?></a></li>
+											<li><a href="#"><i class="fa fa-user"></i><?=$r['update_user']?></a></li>
+											<?php 
+											$_tag = array();
+											if(@$r['tag']&&$r['tag']!=null){
+												$_tmp1 = explode(',',$r['tag']);
+												if($_tmp1!=null){
+													$i=0;
+													foreach($_tmp1 as $k => $v){
+														$_tag[$i] = '<a href="'.$BASE.'/tag/'.str_replace(' ','-',strtolower($v)).'">'.$v.'</a>';
+														$i++;
+													}
+												}
+											}?>
+											<li><a href="#"><i class="fa fa-tags"></i><?=implode(', ',$_tag)?></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php }
+			}else{ ?>
+				<p><?=Selo::instance()->setLang('post_is_empty')?></p>
+			<?php }?>
+		</div>
+	</div>
+</div>
+<!-- recent news -->

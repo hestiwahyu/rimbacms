@@ -1,0 +1,74 @@
+<div class="modal-header">
+	<h5 class="modal-title">View Data</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+	<table class="table-valign-top">
+		<tr>
+			<td>Seotitle</td>
+			<td>:</td>
+			<td><?=@$data['seotitle']?></td>
+		</tr>
+		<tr>
+			<td>Content</td>
+			<td>:</td>
+			<td>
+				<ul class="nav nav-tabs" id="pagesTab" role="tablist">
+				<?php if(@$lang){
+					$i = 1;
+					foreach($lang as $r){ 
+						$active = ($i==1)?'active':'';
+						?>
+						<li class="nav-item">
+							<a class="nav-link <?=$active?>" href="#<?=$r['code']?>" data-toggle="tab" role="tab" aria-controls="<?=$r['code']?>" aria-selected="true"><?=$r['title']?></a>
+						</li>
+					<?php $i++;}
+				}?>
+				</ul>
+				<div class="tab-content" id="pagesTabContent">
+					<?php if(@$lang){
+						$i = 1;
+						foreach($lang as $r){ 
+							$active = ($i==1)?'active':'';
+							?>
+							<div class="tab-pane fade show <?=$active?>" id="<?=$r['code']?>" role="tabpanel" aria-labelledby="<?=$r['code']?>-tab">
+								<div>
+									<p></p>
+									<h5><?=$data['title'][$r['code']]?></h5>
+									<p><?=$data['content'][$r['code']]?></p>
+								</div>
+							</div>
+						<?php $i++;}
+					}?>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>Picture</td>
+			<td>:</td>
+			<td>
+				<?php if($data['picture']!=null && $data['picture']!=''){ ?>
+					<img class="blog-img" src="<?=$BASE?>/images/thumb/<?=$data['picture']?>" alt="<?=$data['title']?>">
+				<?php } ?>
+			</td>
+		</tr>
+		<tr>
+			<td>Active</td>
+			<td>:</td>
+			<td><?=@$data['active']?></td>
+		</tr>
+		<tr>
+			<td>User Update</td>
+			<td>:</td>
+			<td><?=@$data['update_user']?></td>
+		</tr>
+		<tr>
+			<td>Last Update</td>
+			<td>:</td>
+			<td><?=@Selo::instance()->dateFormat($data['update_timestamp'])?></td>
+		</tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+</div>

@@ -1,0 +1,66 @@
+<div class="modal-header">
+	<h5 class="modal-title">Upload Image</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<form id="formDataFilemanager" method="PUT" action="<?=$BASE?>/afilemanager/saveData/">
+<input name="images_gallery_id" type="hidden" value="1">
+<input name="images_picture_old" type="hidden" value="">
+<div class="modal-body">
+	<table class="table table-valign-top">
+		<tr>
+			<td>Title</td>
+			<td>:</td>
+			<td><input name="images_title" class="form-control" value="" required></td>
+		</tr>
+		<tr>
+			<td>Content</td>
+			<td>:</td>
+			<td><textarea name="images_content" class="form-control text-editor"></textarea></td>
+		</tr>
+		<tr>
+			<td>Picture</td>
+			<td>:</td>
+			<td>
+				<input name="images_picture" type="file" class="form-control">
+				<br>
+				<ol>
+					<li>File type <b><?=str_replace(',',', ',Rimba::instance()->setting('img_ext'))?></b></li>
+					<li>File size <b><?=(Rimba::instance()->setting('img_size')/1024)?></b> Mb</li>
+				</ol>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-default"><i class="fa fa-save"></i> Save</button>
+	<button type="reset" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+</div>
+</form>
+
+<script type="text/javascript">
+	$('#formDataFilemanager').submit(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr('action'),
+			type: 'POST',
+			data: new FormData(this),
+			contentType: false,
+			cache: false,
+			processData:false,
+			dataType: 'JSON',
+			success: function(data) {
+				if(data._redirect==true) {
+          			$('#more-area').append(data.new);
+          			$('#CMSModalFileManagerAdd').modal('hide');
+					LoadNotifikasi('success','<b>' + information + '</b><br>' + data._pesan);
+				}else {
+					LoadNotifikasi('danger','<b>' + warning + '</b><br>' + data._pesan);
+				}
+			}
+		});
+	});
+
+	$('#submit').on('click', function() {
+		$('#formDataFilemanager').submit();
+	});
+</script>

@@ -1,0 +1,119 @@
+<div class="modal-header">
+	<h5 class="modal-title"><?=(@$data['id'])?'Edit':'Add';?> Data</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<form id="formData" method="POST" action="<?=$BASE?>/auser/saveData/<?=@$data['id']?>">
+<div class="modal-body">
+	<table class="table table-valign-top">
+		<tr>
+			<td>Name</td>
+			<td>:</td>
+			<td><input type="text" class="form-control" name="user_real_name" value="<?=@$data['real_name']?>"></td>
+		</tr>
+		<tr>
+			<td>User Name</td>
+			<td>:</td>
+			<td><input type="text" class="form-control" name="user_user_name" value="<?=@$data['user_name']?>"></td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td>:</td>
+			<td><input type="email" class="form-control" name="user_email" value="<?=@$data['email']?>"></td>
+		</tr>
+		<?php if(@$data['id']){ }else{ ?>
+		<tr>
+			<td>Password</td>
+			<td>:</td>
+			<td><input type="password" class="form-control" name="user_password" id="user_password" value=""></td>
+		</tr>
+		<tr>
+			<td>Confirm Password</td>
+			<td>:</td>
+			<td><input type="password" class="form-control" name="user_cpassword" id="user_cpassword" value=""></td>
+		</tr>
+		<?php } ?>
+		<tr>
+			<td>Description</td>
+			<td>:</td>
+			<td><textarea name="user_desc" class="form-control"><?=@$data['udesc']?></textarea></td>
+		</tr>
+		<tr>
+			<td>Group</td>
+			<td>:</td>
+			<td>
+				<?php if(@$groups){
+					$_groups = array();
+					if(@$data['ugroup'] && $data['ugroup']!=null){
+						$_groups = explode(',',$data['ugroup']);
+					}
+					foreach($groups as $r){ ?>
+					<span class="label">
+						<input type="checkbox" name="user_group[<?=$r['id']?>]" value="<?=$r['id']?>" <?=(in_array($r['id'],$_groups))?'checked':'';?>> <?=$r['name']?>
+					</span>
+					<?php }
+				}?>
+			</td>
+		</tr>
+		<tr>
+			<td>Active</td>
+			<td>:</td>
+			<td>
+				<input name="user_active" type="radio" value="N" <?=(@$data['active']&&$data['active']=='N')?'checked':'';?>> No
+				<input name="user_active" type="radio" value="Y" <?=(@$data['active']&&$data['active']=='Y')?'checked':'';?>> Yes
+			</td>
+		</tr>
+		<tr>
+			<td>Language</td>
+			<td>:</td>
+			<td><select name="user_active_lang_code" class="form-control">
+				<option value="">- Select -</option>
+				<?php if(@$lang){
+					foreach($lang as $r){ ?>
+						<option value="<?=$r['id']?>" <?=(@$data['lang_code']&&$data['lang_code']==$r['id'])?'selected':'';?>><?=$r['title']?></option>
+					<?php }
+				} ?>
+			</select></td>
+		</tr>
+		<tr>
+			<td>Skin</td>
+			<td>:</td>
+			<td><select name="user_skin" class="form-control">
+				<option value="">- Select -</option>
+				<?php if(@$skins){
+					foreach($skins as $r){ ?>
+						<option value="<?=$r?>" <?=(@$data['skin']&&$data['skin']==$r)?'selected':'';?>><?=$r?></option>
+					<?php }
+				} ?>
+			</select></td>
+		</tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-default"><i class="fa fa-save"></i> Save</button>
+	<button type="reset" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+</div>
+</form>
+
+<script type="text/javascript">
+	$('#formData').submit(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr('action'),
+			type: 'POST',
+			data: $(this).serialize(),
+			dataType: 'JSON',
+			success: function(data) {
+				if(data._redirect==true) {
+					LoadPage(data._page);
+					LoadNotifikasi('success','<b>' + information + '</b><br>' + data._pesan);
+				}else {
+					LoadNotifikasi('danger','<b>' + warning + '</b><br>' + data._pesan);
+				}
+			}
+		});
+	});
+
+	$('#submit').on('click', function() {
+		$('#formData').submit();
+	});
+</script>

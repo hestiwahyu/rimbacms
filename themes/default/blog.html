@@ -1,0 +1,39 @@
+<main role="main" class="container">
+	<div class="row">
+		<div class="col-md-8 blog-main">
+			<h3 class="pb-3 mb-4 font-italic border-bottom">
+			<?=Selo::instance()->setLang('latest_post')?>
+			</h3>
+
+			<?php
+			$posts = Rimba::instance()->getPost('5','publishdate DESC');
+			if($posts != null){
+				foreach($posts as $r){ ?>
+				<div class="blog-post">
+					<h1 class="blog-post-title">
+						<a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=$r['title']?>">
+							<?=$r['title']?>
+						</a>
+					</h1>
+					<p class="blog-post-meta"><?=date('F d, Y',strtotime($r['pdate']))?> by <a href="#"><?=$r['update_user']?></a></p>
+					<?php if($r['picture']!=null && $r['picture']!=''){ ?>
+					<img class="blog-img" src="<?=$BASE?>/images/<?=$r['picture']?>" alt="<?=$r['title']?>">
+					<?php }?>
+					<p><?=Selo::instance()->cutText($r['content'],500)?></p>
+					<p>Tag: <?=$r['tag']?></p>
+				</div>
+				<?php }
+			}else{ ?>
+				<p><?=Selo::instance()->setLang('post_is_empty')?></p>
+			<?php }?>
+
+			<nav class="blog-pagination text-center">
+				<a class="btn btn-outline-primary" href="<?=$BASE?>/post?page=2"><?=Selo::instance()->setLang('more')?></a>
+			</nav>
+		</div>
+
+		<aside class="col-md-4 blog-sidebar">
+			<?=Rimba::instance()->sidebar('R')?>
+		</aside>
+	</div>
+</main>

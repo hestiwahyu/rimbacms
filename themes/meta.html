@@ -1,0 +1,50 @@
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="robots" content="index, follow" />
+<meta name="description" content="<?=Rimba::instance()->setting('web_owner')?> - <?=strip_tags($description)?>" />
+<meta name="keywords" content="<?=$keywords?>" />
+<meta http-equiv="Copyright" content="RimbaCMS" />
+<meta name="author" content="Rimba Media" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="language" content="Indonesia" />
+<meta name="revisit-after" content="7" />
+<meta name="webcrawlers" content="all" />
+<meta name="rating" content="general" />
+<meta name="spiders" content="all" />
+
+<!-- Social Media Meta -->
+<meta property="place:location:latitude" content="<?=Rimba::instance()->setting('latitude')?>" />
+<meta property="place:location:longitude" content="<?=Rimba::instance()->setting('longitude')?>" />
+<meta property="business:contact_data:street_address" content="<?=Rimba::instance()->setting('address')?>" />
+<meta property="business:contact_data:locality" content="<?=Rimba::instance()->setting('region_state')?>" />
+<meta property="business:contact_data:postal_code" content="<?=Rimba::instance()->setting('postal_code')?>" />
+<meta property="business:contact_data:country_name" content="<?=Rimba::instance()->setting('country')?>" />
+<meta property="business:contact_data:email" content="<?=Rimba::instance()->setting('email')?>" />
+<meta property="business:contact_data:phone_number" content="<?=Rimba::instance()->setting('telephone')?>" />
+<meta property="business:contact_data:website" content="<?=Rimba::instance()->setting('web_url')?>" />
+
+<meta property="og:type" content="article" /> <!-- Card type bisa di ganti article, website, blog dan profile -->
+<meta property="profile:first_name" content="<?=Rimba::instance()->setting('fb_first_name')?>" />
+<meta property="profile:last_name" content="<?=Rimba::instance()->setting('fb_last_name')?>" />
+<meta property="profile:username" content="<?=Rimba::instance()->setting('fb_username')?>" />
+<meta property="og:title" content="<?=strip_tags($title)?> - <?=Rimba::instance()->setting('web_owner')?>" />
+<meta property="og:description" content="<?=Rimba::instance()->setting('web_owner')?> - <?=strip_tags($description)?>" />
+<meta property="og:image" content="<?=Rimba::instance()->setting('web_url')?><?=$picture?>" />
+<meta property="og:url" content="<?=Rimba::instance()->setting('web_url')?><?=$url?>" />
+<meta property="og:site_name" content="<?=Rimba::instance()->setting('web_owner')?>" />
+<meta property="fb:admins" content="<?=Rimba::instance()->setting('fb_admins')?>" />
+
+<meta name="twitter:card" content="summary" />  <!-- Card type jangan di ganti -->
+<meta name="twitter:site" content="<?=Rimba::instance()->setting('web_owner')?>" />
+<meta name="twitter:title" content="<?=strip_tags($title)?> - <?=Rimba::instance()->setting('web_owner')?>" />
+<meta name="twitter:description" content="<?=Rimba::instance()->setting('web_owner')?> - <?=strip_tags($description)?>" />
+<meta name="twitter:creator" content="<?=Rimba::instance()->setting('tw_creator')?>" />
+<meta name="twitter:image:src" content="<?=Rimba::instance()->setting('web_url')?><?=$picture?>" />
+<meta name="twitter:domain" content="<?=Rimba::instance()->setting('web_url')?><?=$url?>" />
+
+<meta itemprop="name" content="<?=strip_tags($title)?> - <?=Rimba::instance()->setting('web_owner')?>" />
+<meta itemprop="description" content="<?=Rimba::instance()->setting('web_owner')?> - <?=strip_tags($description)?>" />
+<meta itemprop="image" content="<?=Rimba::instance()->setting('web_url')?><?=$picture?>" />
+<!-- Mobile Specific Meta -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />

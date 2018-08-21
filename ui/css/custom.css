@@ -1,0 +1,151 @@
+/*body*/
+body {
+  font-size: 14px;
+}
+
+/*button*/
+.btn-flat {
+  border-radius: 0px;
+}
+
+/*toolbar*/
+.toolbar {
+  margin-bottom: 10px;
+}
+
+/*table*/
+table.dataTable thead th {
+  vertical-align: middle;
+  text-align: center;
+}
+table.dataTable thead th, table.dataTable thead td {
+  padding: 5px 9px !important;
+}
+table.dataTable tbody th, table.dataTable tbody td {
+  padding: 4px 5px;
+}
+.table-valign-top th, .table-valign-top td {
+  vertical-align: top;
+  padding: 5px;
+}
+.table-valign-top ul, .table-valign-top ol {
+  margin-bottom: 0px;
+  padding-left: 10px;
+}
+.table-valign-top ul li ul, .table-valign-top ol li ol {
+  margin-bottom: 0px;
+  padding-left: 10px;
+}
+.table-valign-top ul {
+  list-style: none;
+}
+
+/*dropdown*/
+.dropdown-toggle::after {
+  border: none;
+}
+.navbar-nav > li > a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.nav > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+.navbar {
+  padding: 0px;
+}
+.main-header .sidebar-toggle {
+  float: left;
+  background-color: transparent;
+  background-image: none;
+  padding: 15px 15px;
+  font-family: fontAwesome;
+}
+.navbar-nav > .user-menu > .dropdown-menu > ul > li a {
+  padding: 5px 15px;
+  display: block;
+}
+.navbar-nav > li > a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+.logo img {
+  max-width: 32px;
+}
+
+/*other*/
+.tip {
+  padding: 0px 3px;
+}
+
+/* alert & warning */
+.alert { padding: 8px 30px 8px 10px; color: #ddd; font-family: 'Roboto',Arial; font-size: 12px; border-radius: 0; position: fixed; z-index: 99; margin: 0; width: 270px; bottom: 20px; right: 20px; box-shadow: none; }
+.alert .fa { margin-top: 8px; font-size: 1.8em; }
+.alert b { font-size: 16px; }
+.alert .close { color: #fff; opacity: 1; }
+.alert-dismissable { padding-right: 30px; }
+.alert-success { background-color: rgba(46, 139, 87, 0.8); color: #eee; border-color: transparent; }
+.alert-danger { background-color: rgba(178, 34, 34, 0.8); color: #eee; border-color: transparent; }
+.alert-warning { background-color: rgba(230, 149, 0, 0.8); color: #eee; border-color: transparent; }
+.alert-info { background-color: rgba(29, 165, 158, 0.8); color: #eee; border-color: transparent; }
+.alert { border-left: 4px solid #2f4050; }
+
+/*pagination*/
+.pagination {
+  margin: 0px;
+}
+.dataTables_info {
+  float: left;
+}
+.dataTables_paginate {
+  float: right;
+}
+.paginate_button {
+  padding: 0px 5px;
+}
+
+/*breadcrumb*/
+.box-solid .breadcrumb {
+  background: none;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
+  padding: 0px;
+}
+.box-solid ol {
+  margin: 0px;
+}
+
+/*thumbnail*/
+.img-thumbnail img {
+  width: 100%;
+}
+
+/*datepicker*/
+.datepicker {
+  padding: 0px;
+}
+.datepicker.dropdown-menu {
+  border-radius: 0px;
+}
+.datepicker table tr td, .datepicker table tr th {
+  border-radius: 0px;
+}
+
+/*input group*/
+.input-group-text .fa {
+  padding-right: 0px;
+}

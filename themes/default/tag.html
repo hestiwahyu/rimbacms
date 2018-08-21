@@ -1,0 +1,61 @@
+<main role="main" class="container">
+	<div class="row">
+		<div class="col-md-8 blog-main">
+			<div class="blog-post">
+				<?php if($detail){
+					$data = Rimba::instance()->getListPostBy();
+					if($data!=null){
+						foreach($data as $r){
+							?>
+							<div class="row">
+								<?php if($r['picture']!=null && $r['picture']!=''){ ?>
+								<div class="col-sm-6 col-md-3">
+									<img class="blog-img" src="<?=$BASE?>/images/thumb/<?=$r['picture']?>" alt="<?=$r['title']?>">
+								</div>
+								<div class="col-sm-6 col-md-9">
+								<?php }else{ ?>
+								<div class="col-md-12">
+								<?php } ?>
+									<h3>
+										<a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=$r['title']?>">
+										<?=$r['title']?>
+										</a>
+									</h3>
+									<p><?=Selo::instance()->cutText($r['content'],250)?></p>
+								</div>
+							</div>
+							<?php
+						}
+					}else{
+						?>
+						<p>Tidak ada post.</p>
+						<?php
+					}
+				}else{
+					$data = Rimba::instance()->tag();
+					if($data!=null){
+						foreach($data as $r){
+							?>
+							<h3>
+								<a href="<?=$BASE?>/tag/<?=$r['seotitle']?>" title="<?=$r['title']?>">
+								<?=$r['title']?> (<?=$r['count']?>)
+								</a>
+							</h3>
+							<?php
+						}
+					}else{
+						?>
+						<p>Tidak ada tag.</p>
+						<?php
+					}
+				}?>
+			</div>
+
+			<?=Rimba::instance()->getPaging();?>
+		</div>
+
+		<aside class="col-md-4 blog-sidebar">
+			<?=Rimba::instance()->sidebar('R')?>
+		</aside>
+	</div>
+</main>

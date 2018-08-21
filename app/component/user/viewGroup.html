@@ -1,0 +1,40 @@
+<div class="modal-header">
+	<h5 class="modal-title">View Group</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+	<table class="table table-valign-top">
+		<tr>
+			<td>Group</td>
+			<td>:</td>
+			<td><?=@$data['name']?></td>
+		</tr>
+		<tr>
+			<td>Access</td>
+			<td>:</td>
+			<td>
+				<ol>
+				<?php 
+				if(@$data['access'] && $data['access']!=null){
+					foreach($data['access'] as $k => $v){ ?>
+					<li>
+						<b><?=ucwords($k)?></b>
+						<?php if(is_array($v) && $v!=null){ ?>
+							<ol>
+							<?php foreach($v as $_r){ ?>
+								<li><?=Selo::instance()->action($_r)?></li>
+							<?php } ?>
+							</ol>
+						<?php }?>
+					</li>
+					<?php }
+				}
+				?>
+				</ol>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+</div>

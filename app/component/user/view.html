@@ -1,0 +1,65 @@
+<div class="modal-header">
+	<h5 class="modal-title">View Data</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+	<table class="table table-valign-top">
+		<tr>
+			<td>Username</td>
+			<td>:</td>
+			<td><?=@$data['user_name']?></td>
+		</tr>
+		<tr>
+			<td>Name</td>
+			<td>:</td>
+			<td><?=@$data['real_name']?></td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td>:</td>
+			<td><?=@$data['email']?></td>
+		</tr>
+		<tr>
+			<td>Desc</td>
+			<td>:</td>
+			<td><?=@$data['udesc']?></td>
+		</tr>
+		<tr>
+			<td>Group</td>
+			<td>:</td>
+			<td>
+				<ol style="margin: 0px;">
+				<?php 
+				$_groups = array();
+				if(@$data['ugroup'] && $data['ugroup']!=null){
+					$_groups = explode(',',$data['ugroup']);
+					if($_groups != null){
+						foreach($_groups as $r){ ?>
+						<li><a href="#" onclick="LoadModalForm($(this).attr('url'));" url="<?=$BASE?>/auser/viewGroup/<?=$r?>"><?=Selo::instance()->userGroup($r)['name']?></a></li>
+						<?php }
+					}
+				}
+				?>
+				</ol>
+			</td>
+		</tr>
+		<tr>
+			<td>Status</td>
+			<td>:</td>
+			<td><?=@$data['active']?></td>
+		</tr>
+		<tr>
+			<td>Last Logged In</td>
+			<td>:</td>
+			<td><?=@$data['logged_in']?></td>
+		</tr>
+		<tr>
+			<td>Last IP</td>
+			<td>:</td>
+			<td><?=@$data['last_ip']?></td>
+		</tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+</div>

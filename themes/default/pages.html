@@ -1,0 +1,29 @@
+<main role="main" class="container">
+	<div class="row">
+		<aside class="col-md-4 blog-sidebar">
+			<?=Rimba::instance()->sidebar('L')?>
+		</aside>
+		<div class="col-md-8 blog-main">
+			<div class="blog-post">
+				<?php if($detail){
+					$data = Rimba::instance()->getPagesBy();
+					if($data!=null){
+						?>
+						<h1><?=$data['title']?></h1>
+						<?php if($data['picture']!=null && $data['picture']!=''){ ?>
+						<img class="blog-img" src="<?=$BASE?>/images/<?=$data['picture']?>" alt="<?=$data['title']?>">
+						<?php }?>
+						<p>
+							<?=$data['content']?>
+						</p>
+						<?php
+					}else{
+						echo Selo::instance()->setLang('pages_is_empty');
+					}
+				}else{
+					echo Selo::instance()->setLang('pages_is_empty');
+				}?>
+			</div>
+		</div>
+	</div>
+</main>

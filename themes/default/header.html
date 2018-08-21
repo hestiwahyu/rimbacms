@@ -1,0 +1,29 @@
+<header class="blog-header py-3" style="background-image: url(<?=$BASE?>/ui/images/<?=Rimba::instance()->setting('img_header')?>)">
+	<div class="row flex-nowrap justify-content-between align-items-center">
+		<div class="col-4 pt-1">
+			<a class="text-muted" href="<?=$BASE?>/subscribe"><?=Selo::instance()->setLang('subscribe')?></a>
+		</div>
+		<div class="col-4 text-center">
+			<a class="blog-header-logo text-dark" href="<?=$BASE?>/about"><?=Rimba::instance()->setting('web_name')?></a>
+		</div>
+		<div class="col-4 d-flex justify-content-end align-items-center">
+			<a class="btn btn-sm btn-outline-secondary" href="<?=$BASE?>/login"><?=Selo::instance()->setLang('login')?></a>
+		</div>
+	</div>
+</header>
+<div class="nav-scroller">
+	<nav class="navbar navbar-expand-lg">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon">
+				<i class="fa fa-list"></i>
+			</span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarToggler">
+			<?php echo Rimba::instance()->getMenu('navbar-nav mr-auto mt-2 mt-lg-0 d-flex justify-content-between'); ?>
+		</div>
+	</nav>
+</div>
+<?php 
+if(!@$ishome)
+	echo Rimba::instance()->getBreadcrumb(); 
+?>

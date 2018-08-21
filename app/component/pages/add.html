@@ -1,0 +1,118 @@
+<div class="row">
+    <div class="col-lg-12" id="breadcrumb">
+        <div class="box box-solid" style="margin-top:10px">
+            <div class="box-body">
+            	<?php echo Rimba::instance()->getBreadcrumb();?>
+            	<div style="clear:both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="formData" method="POST" action="<?=$BASE?>/apages/saveData/<?=@$data['id']?>">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="box box-primary">
+            <div class="box-body">
+            	<h2><?=$subtitle?></h2>
+				<table class="table table-valign-top">
+					<tr>
+						<td>Seotitle</td>
+						<td>:</td>
+						<td colspan="4"><input name="pages_seotitle" class="form-control" value="<?=@$data['seotitle']?>" onKeyPress="return angkadanhuruf(event,'-_.0123456789abcdefghijklmnopqrstuvwxyz',this)" required></td>
+					</tr>
+					<tr>
+						<td>Content</td>
+						<td>:</td>
+						<td colspan="4">
+							<ul class="nav nav-tabs" id="pagesTab" role="tablist">
+							<?php if(@$lang){
+								$i = 1;
+								foreach($lang as $r){ 
+									$active = ($i==1)?'active':'';
+									?>
+									<li class="nav-item">
+										<a class="nav-link <?=$active?>" href="#<?=$r['code']?>" data-toggle="tab" role="tab" aria-controls="<?=$r['code']?>" aria-selected="true"><?=$r['title']?></a>
+									</li>
+								<?php $i++;}
+							}?>
+							</ul>
+							<div class="tab-content" id="pagesTabContent">
+								<?php if(@$lang){
+									$i = 1;
+									foreach($lang as $r){ 
+										$active = ($i==1)?'active':'';
+										?>
+										<input type="hidden" name="pages_lang_code[<?=$r['code']?>]" value="<?=$r['code']?>">
+										<div class="tab-pane fade show <?=$active?>" id="<?=$r['code']?>" role="tabpanel" aria-labelledby="<?=$r['code']?>-tab">
+											<div class="form-group">
+												<label>Title</label>
+												<div>
+													<input type="text" class="form-control" name="pages_title[<?=$r['code']?>]" value="<?=@$data['title'][$r['code']]?>">
+												</div>
+											</div>
+											<div class="form-group">
+												<label>Content</label>
+												<div>
+													<textarea name="pages_content[<?=$r['code']?>]" class="form-control text_editor"><?=@$data['content'][$r['code']]?></textarea>
+												</div>
+											</div>
+										</div>
+									<?php $i++;}
+								}?>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Active</td>
+						<td>:</td>
+						<td>
+							<input name="pages_active" type="radio" value="N" <?=(@$data['active']&&$data['active']=='N')?'checked':'';?>> No
+			        		<input name="pages_active" type="radio" value="Y" <?=(@$data['active']&&$data['active']=='Y')?'checked':'';?>> Yes
+						</td>
+						<td>Picture</td>
+						<td>:</td>
+						<td>
+							<div class="input-group">
+								<input name="pages_picture" id="pages_picture" class="form-control" value="<?=@$data['picture']?>">
+								<div class="input-group-prepend">
+									<span class="input-group-text" url="<?=$BASE?>/afilemanager/viewData" onclick="LoadModalFileManager($(this).attr('url'),'modal-lg');setFieldId('pages_picture')"><i class="fa fa-picture-o"></i></span>
+								</div>
+							</div>
+						</td>
+				    </tr>
+				</table>
+			</div>
+			<div class="box-footer text-center">
+				<button type="submit" class="btn btn-default"><i class="fa fa-save"></i> Save</button>
+				<a href="#" url="<?=$BASE?>/apages" onclick="LoadPage($(this).attr('url'));" class="btn btn-primary"><i class="fa fa-remove"></i> Cancel</a>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+
+<script type="text/javascript">
+	$('#formData').submit(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr('action'),
+			type: 'POST',
+			data: $(this).serialize(),
+			dataType: 'JSON',
+			success: function(data) {
+				if(data._redirect==true) {
+					LoadPage(data._page);
+					LoadNotifikasi('success','<b>' + information + '</b><br>' + data._pesan);
+				}else {
+					LoadNotifikasi('danger','<b>' + warning + '</b><br>' + data._pesan);
+				}
+			}
+		});
+	});
+
+	$('#submit').on('click', function() {
+		$('#formData').submit();
+	});
+
+	textarea.ckeditor_basic('.text_editor');
+</script>

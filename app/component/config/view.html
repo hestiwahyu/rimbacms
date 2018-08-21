@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-lg-12" id="breadcrumb">
+        <div class="box box-solid" style="margin-top:10px">
+            <div class="box-body">
+            <?php echo Rimba::instance()->getBreadcrumb();?>
+            <div style="clear:both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="box box-primary">
+            <div class="box-body">
+                <?php if(Selo::instance()->access('config',1)==true){ ?>
+                <ul class="nav nav-tabs" id="postTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="config-tab" data-toggle="tab" href="#config" role="tab" aria-controls="config" aria-selected="true"><i class="fa fa-cog"></i> Config</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="route-tab" data-toggle="tab" href="#route" role="tab" aria-controls="route" aria-selected="false"><i class="fa fa-link"></i> Route</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="postTabContent">
+                    <div class="tab-pane fade show active" id="config" role="tabpanel" aria-labelledby="config-tab">
+                        <form id="formDataConfig" method="POST" action="<?=$BASE?>/aconfig/saveDataConfig/">
+                            <div class="form-group">
+                                <textarea name="config" class="form-control" style="height: 380px;margin-top: 10px;"><?=@$config?></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" id="submitConfig" class="btn btn-default"><i class="fa fa-save"></i> Save</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="route" role="tabpanel" aria-labelledby="route-tab">
+                        <form id="formDataRoute" method="POST" action="<?=$BASE?>/aconfig/saveDataRoute/">
+                            <div class="form-group">
+                                <textarea name="route" class="form-control" style="height: 380px;margin-top: 10px;"><?=@$route?></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" id="submitRoute" class="btn btn-default"><i class="fa fa-save"></i> Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <?php }?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#formDataConfig').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'JSON',
+            success: function(data) {
+                if(data._redirect==true) {
+                    LoadPage(data._page);
+                    LoadNotifikasi('success','<b>' + information + '</b><br>' + data._pesan);
+                }else {
+                    LoadNotifikasi('danger','<b>' + warning + '</b><br>' + data._pesan);
+                }
+            }
+        });
+    });
+
+    $('#submitConfig').on('click', function() {
+        // $('#formDataConfig').submit();
+    });
+
+    $('#formDataRoute').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'JSON',
+            success: function(data) {
+                if(data._redirect==true) {
+                    LoadPage(data._page);
+                    LoadNotifikasi('success','<b>' + information + '</b><br>' + data._pesan);
+                }else {
+                    LoadNotifikasi('danger','<b>' + warning + '</b><br>' + data._pesan);
+                }
+            }
+        });
+    });
+
+    $('#submitRoute').on('click', function() {
+        // $('#formDataRoute').submit();
+    });
+</script>

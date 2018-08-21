@@ -1,0 +1,64 @@
+<main role="main" class="container">
+	<div class="row">
+		<div class="col-md-12 blog-main">
+			<div class="blog-post">
+				<?php 
+				if($detail){
+					$data = Rimba::instance()->getGalleryBy();
+					if($data!=null){
+						?>
+						<h1 class="blog-post-title"><?=$data['title']?></h1>
+						<p class="blog-post-meta"></p>
+						<div class="row">
+						<?php foreach($data['images'] as $r){?>
+							<div class="col-md-3">
+								<div class="img-thumbnail">
+									<img src="<?=$BASE?>/images/thumb/gallery/<?=$r['picture']?>" alt="<?=$r['img_title']?>">
+									<div class="caption">
+										<p><?=$r['content']?></p>
+									</div>
+								</div>
+							</div>
+						<?php } ?>
+						</div>
+					<?php }else{
+						?>
+						<p><?=Selo::instance()->setLang('gallery_is_empty')?></p>
+						<?php
+					}
+				}else{
+					$data = Rimba::instance()->getListGalleryBy();
+					if($data!=null){ ?>
+						<div class="row">
+						<?php foreach($data as $r){ ?>
+							<div class="col-md-3">
+								<div class="img-thumbnail">
+									<a href="<?=$BASE?>/gallery/<?=$r['seotitle']?>" title="<?=$r['title']?>">
+										<?php if($r['picture']!=null){ ?>
+										<img src="<?=$BASE?>/images/thumb/gallery/<?=$r['picture']?>" alt="<?=$r['img_title']?>">
+										<?php }else{ ?>
+										<img src="<?=$BASE?>/images/thumb/default.png" alt="<?=$r['title']?>">
+										<?php } ?>
+									</a>
+									<div class="caption">
+										<p><?=ucwords($r['title'])?></p>
+										<span><i class="fa fa-eye"> <?=$r['hits']?></i></span>
+										<span><i class="fa fa-picture-o"> <?=$r['img_count']?></i></span>
+									</div>
+								</div>
+							</div>
+						<?php } ?>
+						</div>
+						<?php
+					}else{
+						?>
+						<p>Tidak ada gambar.</p>
+						<?php
+					}
+				}?>
+			</div>
+
+			<?php echo Rimba::instance()->getPaging();?>
+		</div>
+	</div>
+</main>

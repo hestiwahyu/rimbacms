@@ -1,0 +1,128 @@
+<style>
+#map {
+	height: 600px;
+	width: 100%;
+}
+</style>
+
+<div class="pagehding-sec">
+	<div class="pagehding-overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-heading">
+					<h1><?=Selo::instance()->setLang('contact')?></h1>
+					<?php echo Rimba::instance()->getBreadcrumb('ul','');?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="blog-classic-sec pt-100 pb-100">
+	<main role="main">
+		<div class="row">
+			<div class="col-md-6" id="map">
+			</div>
+			<div class="col-md-6 blog-main" style="padding-left: 50px;padding-right: 100px;">
+				<div class="blog-post pt-50">
+					<?php
+					if($data!=null){
+						?>
+						<?php if($data['picture']!=null && $data['picture']!=''){ ?>
+							<img class="blog-img" src="<?=$BASE?>/images/<?=$data['picture']?>" alt="<?=ucwords(strip_tags($data['title']))?>" style="width: 100%;">
+						<?php }?>
+						<h1><?=$data['title']?></h1>
+						<p>
+							<?=$data['content']?>
+						</p>
+						<?php
+					}else{
+						echo Selo::instance()->setLang('pages_is_empty');
+					}
+					?>
+				</div>
+				<div class="blog-testimoni pt-50">
+					<form method="post" action="<?=$BASE?>/saveContact" id="form-kontak">
+						<div class="form-group">
+							<h2><?=Selo::instance()->setLang('leave_a_message')?></h2>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-6">
+								<label><?=Selo::instance()->setLang('name')?></label>
+								<input type="text" class="form-control" name="contact_name" required>
+							</div>
+							<div class="col-md-6">
+								<label><?=Selo::instance()->setLang('email')?></label>
+								<input type="email" class="form-control" name="contact_email" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label><?=Selo::instance()->setLang('message')?></label>
+							<textarea class="form-control" name="contact_message"></textarea>
+						</div>
+						<div class="form-group">
+							<button class="btn btn-md btn-outline-secondary" type="submit"><?=Selo::instance()->setLang('save')?></button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
+<script type="text/javascript">
+	var _lat = <?=Rimba::instance()->setting('latitude')?>;
+	var _long = <?=Rimba::instance()->setting('longitude')?>;
+
+	var marker;
+	var markers = [];
+	var markbounds = [];
+
+	var geocoder;
+	var map;
+	var infowindow;
+	var contents = [];
+
+	function initMap() {
+		var uluru = {lat: _lat, lng: _long};
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 12,
+			center: uluru
+		});
+		var rimba = new google.maps.LatLng(_lat,_long);
+		addMarker(map,rimba);
+
+		infowindow = new google.maps.InfoWindow();
+	}
+
+	function addMarker(map,place){
+		marker = new google.maps.Marker({
+			map: map,
+			position: place,
+			filter: {
+				tipe: 'rimba'
+			}
+		});
+		var img = '<img src="<?=$BASE?>/images/<?=Rimba::instance()->setting('logo')?>" width="150px;">';
+		var content = '<table>'
+			+'<tr>'
+				+'<td rowspan="3" style="vertical-align:center;padding-right:15px;">'+img+'</td>'
+				+'<td><b style="font-size:20px;"><?=Rimba::instance()->setting('web_name')?></b></td>'
+			+'</tr>'
+			+'<tr>'
+				+'<td><?=Rimba::instance()->setting('address')?><br>Telp. <?=Rimba::instance()->setting('telephone')?><br>email. <?=Rimba::instance()->setting('email')?><br>Website. <a href="<?=Rimba::instance()->setting('web_url')?>" target="blank"><?=Rimba::instance()->setting('web_url')?></a></td>'
+			+'</tr>'
+			+'<tr>'
+				+'<td><a class="btn btn-info" href="<?=$BASE?>/about">Detail</a></td>'
+			+'</tr>'
+		+'</table>';
+		contents['rimba'] = content;
+		marker.addListener('click', function() {
+			infowindow.setContent(content);
+			infowindow.open(map,this);
+		});
+		markers['rimba'] = marker;
+		markbounds['rimba'] = place;
+	}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&libraries=places&key=<?=Rimba::instance()->setting('google_api_key')?>&callback=initMap"></script>

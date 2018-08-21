@@ -1,0 +1,61 @@
+<div class="modal-header">
+  <h5 class="modal-title">File Manager</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+  <div class="row" id="more-area">
+    <?php if(@$data && $data!=null){
+      foreach($data as $r){?>
+      <div class="col-md-3">
+        <div class="img-thumbnail" title="<?=$r['title']?>">
+          <img src="<?=$BASE?>/images/thumb/gallery/<?=$r['picture']?>" alt="<?=$r['title']?>" onclick="setField('gallery/<?=$r['picture']?>')" data-dismiss="modal" aria-label="Close">
+          <div class="caption">
+            <div class="input-group">
+              <input class="form-control" value="<?=$BASE?>/images/gallery/<?=$r['picture']?>">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-link"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php }
+    } ?>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-success btn-flat" id="more-btn"><i class="fa fa-arrow-down"></i> More</button>
+  <a class="btn btn-primary btn-flat" href="#" url="<?=$BASE?>/afilemanager/formAdd" onclick="LoadModalFormFileManager($(this).attr('url'));" title="Upload">
+    <i class="fa fa-plus-circle"></i>
+    Upload
+  </a>
+</div>
+
+<input type="hidden" name="limit" id="limit" value="12">
+<input type="hidden" name="offset" id="offset" value="12">
+
+<input type="hidden" name="fieldId" id="fieldId">
+
+<script type="text/javascript">
+  $('#more-btn').on('click', function(){
+    $.ajax({
+      url: '<?=$BASE?>/afilemanager/viewMore',
+      type: 'POST',
+      data: 'limit='+$('#limit').val()+'&offset='+$('#offset').val(),
+      success: function(data) {
+        if(data!=null || data!=''){
+          $('#more-area').append(data);
+          $('#limit').val(eval($('#limit').val())+12);
+          $('#offset').val(eval($('#offset').val())+12);
+          $('#notif-more').html('');
+        }else{
+          $('#notif-more').html('Images not found!');
+        }
+      }
+    });
+  });
+
+  function setField(img){
+    $('#'+$('#fieldId').val()).val(img);
+  }
+</script>

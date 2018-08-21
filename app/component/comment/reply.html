@@ -1,0 +1,73 @@
+<div class="modal-header">
+	<h5 class="modal-title">Reply Comment</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<form id="formData" method="POST" action="<?=$BASE?>/acomment/saveData/<?=@$data['id']?>">
+<input type="hidden" name="comment_post_id" value="<?=@$data['post_id']?>">
+<input type="hidden" name="comment_url" value="<?=@$data['url']?>">
+<div class="modal-body">
+	<table class="table table-valign-top">
+		<tr>
+			<td>Name</td>
+			<td>:</td>
+			<td><?=@$data['name']?></td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td>:</td>
+			<td><?=@$data['email']?></td>
+		</tr>
+		<tr>
+			<td>Date</td>
+			<td>:</td>
+			<td><?=@$data['cdate']?> <?=@$data['ctime']?></td>
+		</tr>
+		<tr>
+			<td>Post</td>
+			<td>:</td>
+			<td><a href="<?=$BASE?>/post/<?=@$data['seotitle']?>" target="blank"><?=@$data['title']?></a></td>
+		</tr>
+		<tr>
+			<td>Comment</td>
+			<td>:</td>
+			<td><?=@$data['ctext']?></td>
+		</tr>
+		<tr>
+			<td colspan="3"><br></td>
+		</tr>
+		<tr>
+			<td>Comment Reply</td>
+			<td>:</td>
+			<td><textarea name="comment_text" class="form-control" required></textarea></td>
+		</tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-default"><i class="fa fa-save"></i> Save</button>
+	<button type="reset" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+</div>
+</form>
+
+<script type="text/javascript">
+	$('#formData').submit(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr('action'),
+			type: 'POST',
+			data: $(this).serialize(),
+			dataType: 'JSON',
+			success: function(data) {
+				if(data._redirect==true) {
+					LoadPage(data._page);
+					LoadNotifikasi('success','<b>' + information + '</b><br>' + data._pesan);
+				}else {
+					LoadNotifikasi('danger','<b>' + warning + '</b><br>' + data._pesan);
+				}
+			}
+		});
+	});
+
+	$('#submit').on('click', function() {
+		$('#formData').submit();
+	});
+</script>

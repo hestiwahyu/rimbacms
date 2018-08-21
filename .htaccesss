@@ -1,0 +1,49 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php/$0 [PT,L]
+
+#Reformat ETAG
+FileETag MTime Size
+
+#Cache-control Header - HTTP 1.1
+<IfModule mod_headers.c>
+	#Cache 1 Minggu
+	<FilesMatch "\.(html|htm)$">
+		Header set Cache-control "max-age:604800"
+	</FilesMatch>
+
+	#Cache 3 Bulan
+	<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf)$">
+		Header set Cache-Control "max-age=5184000"
+	</FilesMatch>
+
+	#Cache 1 Bulan
+	<FilesMatch "\.(js|css)$">
+		Header set Cache-Control "max-age=2592000"
+	</FilesMatch>
+</IfModule>
+
+#Expires Header - HTTP 1.0
+<IfModule mod_expires.c>
+	ExpiresActive on
+	ExpiresDefault "access"
+	ExpiresByType image/gif "access plus 3 month"
+	ExpiresByType image/png "access plus 3 month"
+	ExpiresByType image/jpg "access plus 3 month"
+	ExpiresByType image/jpeg "access plus 3 month"
+	ExpiresByType video/mp4 "access plus 3 month"
+	ExpiresByType video/webm "access plus 3 month"
+
+	ExpiresByType text/html "modification plus 1 weeks"
+
+	ExpiresByType text/css "access plus 1 month"
+	ExpiresByType text/javascript "access plus 1 month"
+	ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
+
+ErrorDocument 400 /errors
+ErrorDocument 401 /errors
+ErrorDocument 403 /errors
+ErrorDocument 404 /errors
+ErrorDocument 500 /errors

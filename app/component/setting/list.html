@@ -1,0 +1,342 @@
+<div class="row">
+    <div class="col-lg-12" id="breadcrumb">
+        <div class="box box-solid" style="margin-top:10px">
+            <div class="box-body">
+            <?php echo Rimba::instance()->getBreadcrumb();?>
+            <div style="clear:both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="pageBar">
+                    <div class="pageNav">
+                        <?php if(Selo::instance()->access('setting',2)==true){ ?>
+                        <a class="btn btn-primary btn-flat" href="#" url="<?=$BASE?>/asetting/formAdd" onclick="LoadModalForm($(this).attr('url'));" title="Add">
+                        <i class="fa fa-plus-circle"></i>
+                        Add
+                        </a>
+                        <?php } ?>
+                    </div>
+                </div>
+                <br>
+                <ul class="nav nav-tabs" id="postTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true"><i class="fa fa-list"></i> General</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="config-tab" data-toggle="tab" href="#config" role="tab" aria-controls="config" aria-selected="false"><i class="fa fa-cog"></i> Config</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="local-tab" data-toggle="tab" href="#local" role="tab" aria-controls="local" aria-selected="false"><i class="fa fa-list"></i> Local</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="mail-tab" data-toggle="tab" href="#mail" role="tab" aria-controls="mail" aria-selected="false"><i class="fa fa-envelope"></i> Mail</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false"><i class="fa fa-picture-o"></i> Images</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="file-tab" data-toggle="tab" href="#file" role="tab" aria-controls="file" aria-selected="false"><i class="fa fa-file"></i> File</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="postTabContent">
+                    <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+                        <div class="table-responsive clearfix">
+                            <table class="table table-bordered table-hover dataTable no-footer" id="dataTable-general">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Action</th>
+                                        <th>Options</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="local" role="tabpanel" aria-labelledby="local-tab">
+                        <div class="table-responsive clearfix">
+                            <table class="table table-bordered table-hover dataTable no-footer" id="dataTable-local">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Action</th>
+                                        <th>Options</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="config" role="tabpanel" aria-labelledby="config-tab">
+                        <div class="table-responsive clearfix">
+                            <table class="table table-bordered table-hover dataTable no-footer" id="dataTable-config">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Action</th>
+                                        <th>Options</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="mail" role="tabpanel" aria-labelledby="mail-tab">
+                        <div class="table-responsive clearfix">
+                            <table class="table table-bordered table-hover dataTable no-footer" id="dataTable-mail">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Action</th>
+                                        <th>Options</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
+                        <div class="table-responsive clearfix">
+                            <table class="table table-bordered table-hover dataTable no-footer" id="dataTable-image">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Action</th>
+                                        <th>Options</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="file" role="tabpanel" aria-labelledby="file-tab">
+                        <div class="table-responsive clearfix">
+                            <table class="table table-bordered table-hover dataTable no-footer" id="dataTable-file">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Action</th>
+                                        <th>Options</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var table_1 = null;
+    var limit_1 = "25";
+    $(document).ready(function() {
+        table_1 = $('#dataTable-general').dataTable({
+            "sDom": '<"toolbar">rt<"clear"><"pesanpesan">tip',
+            "bJQueryUI": false, 
+            "iDisplayLength": limit_1,
+            "bAutoWidth": false,
+            "bProcessing": true,
+            "bServerSide": true,
+            "sServerMethod" : "POST",
+            "bScrollCollapse": true,
+            "sAjaxSource": "<?=$BASE?>/asetting/getDataJson",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                    {name: "s_name", value: $('#s_name').val()},
+                    {name: "s_group", value: 'general'}
+                )
+            },
+            "columns": [
+                { "data": "no", "orderable": false, width:'4%', className:'text-center' },
+                { "data": "pilihan", "orderable": false, width:'8%' },
+                { "data": "options", "orderable": false },
+                { "data": "value", "orderable": false }
+            ]
+        });
+
+        $('#s_name').on('keyup',function(){
+            table_1.fnFilter(this.value, "s_name");
+        });
+    });
+
+    var table_2 = null;
+    var limit_2 = "25";
+    $(document).ready(function() {
+        table_2 = $('#dataTable-local').dataTable({
+            "sDom": '<"toolbar">rt<"clear"><"pesanpesan">tip',
+            "bJQueryUI": false, 
+            "iDisplayLength": limit_2,
+            "bAutoWidth": false,
+            "bProcessing": true,
+            "bServerSide": true,
+            "sServerMethod" : "POST",
+            "bScrollCollapse": true,
+            "sAjaxSource": "<?=$BASE?>/asetting/getDataJson",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                    {name: "s_name", value: $('#s_name').val()},
+                    {name: "s_group", value: 'local'}
+                )
+            },
+            "columns": [
+                { "data": "no", "orderable": false, width:'4%', className:'text-center' },
+                { "data": "pilihan", "orderable": false, width:'8%' },
+                { "data": "options", "orderable": false },
+                { "data": "value", "orderable": false }
+            ]
+        });
+
+        $('#s_name').on('keyup',function(){
+            table_2.fnFilter(this.value, "s_name");
+        });
+    });
+
+    var table_3 = null;
+    var limit_3 = "25";
+    $(document).ready(function() {
+        table_3 = $('#dataTable-config').dataTable({
+            "sDom": '<"toolbar">rt<"clear"><"pesanpesan">tip',
+            "bJQueryUI": false, 
+            "iDisplayLength": limit_3,
+            "bAutoWidth": false,
+            "bProcessing": true,
+            "bServerSide": true,
+            "sServerMethod" : "POST",
+            "bScrollCollapse": true,
+            "sAjaxSource": "<?=$BASE?>/asetting/getDataJson",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                    {name: "s_name", value: $('#s_name').val()},
+                    {name: "s_group", value: 'config'}
+                )
+            },
+            "columns": [
+                { "data": "no", "orderable": false, width:'4%', className:'text-center' },
+                { "data": "pilihan", "orderable": false, width:'8%' },
+                { "data": "options", "orderable": false },
+                { "data": "value", "orderable": false }
+            ]
+        });
+
+        $('#s_name').on('keyup',function(){
+            table_3.fnFilter(this.value, "s_name");
+        });
+    });
+
+    var table_4 = null;
+    var limit_4 = "25";
+    $(document).ready(function() {
+        table_4 = $('#dataTable-mail').dataTable({
+            "sDom": '<"toolbar">rt<"clear"><"pesanpesan">tip',
+            "bJQueryUI": false, 
+            "iDisplayLength": limit_4,
+            "bAutoWidth": false,
+            "bProcessing": true,
+            "bServerSide": true,
+            "sServerMethod" : "POST",
+            "bScrollCollapse": true,
+            "sAjaxSource": "<?=$BASE?>/asetting/getDataJson",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                    {name: "s_name", value: $('#s_name').val()},
+                    {name: "s_group", value: 'mail'}
+                )
+            },
+            "columns": [
+                { "data": "no", "orderable": false, width:'4%', className:'text-center' },
+                { "data": "pilihan", "orderable": false, width:'8%' },
+                { "data": "options", "orderable": false },
+                { "data": "value", "orderable": false }
+            ]
+        });
+
+        $('#s_name').on('keyup',function(){
+            table_4.fnFilter(this.value, "s_name");
+        });
+    });
+
+    var table_5 = null;
+    var limit_5 = "25";
+    $(document).ready(function() {
+        table_5 = $('#dataTable-image').dataTable({
+            "sDom": '<"toolbar">rt<"clear"><"pesanpesan">tip',
+            "bJQueryUI": false, 
+            "iDisplayLength": limit_5,
+            "bAutoWidth": false,
+            "bProcessing": true,
+            "bServerSide": true,
+            "sServerMethod" : "POST",
+            "bScrollCollapse": true,
+            "sAjaxSource": "<?=$BASE?>/asetting/getDataJson",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                    {name: "s_name", value: $('#s_name').val()},
+                    {name: "s_group", value: 'image'}
+                )
+            },
+            "columns": [
+                { "data": "no", "orderable": false, width:'4%', className:'text-center' },
+                { "data": "pilihan", "orderable": false, width:'8%' },
+                { "data": "options", "orderable": false },
+                { "data": "value", "orderable": false }
+            ]
+        });
+
+        $('#s_name').on('keyup',function(){
+            table_5.fnFilter(this.value, "s_name");
+        });
+    });
+
+    var table_6 = null;
+    var limit_6 = "25";
+    $(document).ready(function() {
+        table_6 = $('#dataTable-file').dataTable({
+            "sDom": '<"toolbar">rt<"clear"><"pesanpesan">tip',
+            "bJQueryUI": false, 
+            "iDisplayLength": limit_6,
+            "bAutoWidth": false,
+            "bProcessing": true,
+            "bServerSide": true,
+            "sServerMethod" : "POST",
+            "bScrollCollapse": true,
+            "sAjaxSource": "<?=$BASE?>/asetting/getDataJson",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                    {name: "s_name", value: $('#s_name').val()},
+                    {name: "s_group", value: 'file'}
+                )
+            },
+            "columns": [
+                { "data": "no", "orderable": false, width:'4%', className:'text-center' },
+                { "data": "pilihan", "orderable": false, width:'8%' },
+                { "data": "options", "orderable": false },
+                { "data": "value", "orderable": false }
+            ]
+        });
+
+        $('#s_name').on('keyup',function(){
+            table_6.fnFilter(this.value, "s_name");
+        });
+    });
+</script>

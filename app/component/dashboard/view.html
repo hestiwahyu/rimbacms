@@ -1,0 +1,238 @@
+<div class="row">
+    <div class="col-lg-12" id="breadcrumb">
+        <div class="box box-solid" style="margin-top:10px">
+            <div class="box-body">
+            <?php echo Rimba::instance()->getBreadcrumb();?>
+            <div style="clear:both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+	<div class="col-md-3 col-sm-6 col-xs-12">
+		<a href="<?=$BASE?>/apost">
+		<div class="info-box">
+			<span class="info-box-icon bg-aqua"><i class="fa fa-pencil"></i></span>
+			<div class="info-box-content">
+				<span class="info-box-text">Post</span>
+				<span class="info-box-number"><?=@$cpost?></span>
+			</div>
+		</div>
+		</a>
+	</div>
+
+	<div class="col-md-3 col-sm-6 col-xs-12">
+		<a href="<?=$BASE?>/apages">
+		<div class="info-box">
+			<span class="info-box-icon bg-red"><i class="fa fa-file"></i></span>
+			<div class="info-box-content">
+				<span class="info-box-text">Pages</span>
+				<span class="info-box-number"><?=@$cpages?></span>
+			</div>
+		</div>
+		</a>
+	</div>
+
+	<div class="col-md-3 col-sm-6 col-xs-12">
+		<a href="<?=$BASE?>/acategory">
+		<div class="info-box">
+			<span class="info-box-icon bg-green"><i class="fa fa-tag"></i></span>
+			<div class="info-box-content">
+				<span class="info-box-text">Category</span>
+				<span class="info-box-number"><?=@$ccategory?></span>
+			</div>
+		</div>
+		</a>
+	</div>
+
+	<div class="col-md-3 col-sm-6 col-xs-12">
+		<a href="<?=$BASE?>/atag">
+		<div class="info-box">
+			<span class="info-box-icon bg-yellow"><i class="fa fa-tags"></i></span>
+			<div class="info-box-content">
+				<span class="info-box-text">Tag</span>
+				<span class="info-box-number"><?=@$ctag?></span>
+			</div>
+		</div>
+		</a>
+	</div>
+
+	<div class="col-md-3 col-sm-6 col-xs-12">
+		<a href="<?=$BASE?>/acomment">
+		<div class="info-box">
+			<span class="info-box-icon bg-light-blue"><i class="fa fa-comment"></i></span>
+			<div class="info-box-content">
+				<span class="info-box-text">Comment</span>
+				<span class="info-box-number"><?=@$ccomment?></span>
+			</div>
+		</div>
+		</a>
+	</div>
+
+	<div class="col-md-3 col-sm-6 col-xs-12">
+		<a href="<?=$BASE?>/asubscribe">
+		<div class="info-box">
+			<span class="info-box-icon bg-navy"><i class="fa fa-envelope"></i></span>
+			<div class="info-box-content">
+				<span class="info-box-text">Subscribe</span>
+				<span class="info-box-number"><?=@$csubscribe?></span>
+			</div>
+		</div>
+		</a>
+	</div>
+
+	<div class="col-md-3 col-sm-6 col-xs-12">
+		<a href="<?=$BASE?>/agallery">
+		<div class="info-box">
+			<span class="info-box-icon bg-olive"><i class="fa fa-picture-o"></i></span>
+			<div class="info-box-content">
+				<span class="info-box-text">Gallery</span>
+				<span class="info-box-number"><?=@$cgallery?></span>
+			</div>
+		</div>
+		</a>
+	</div>
+
+	<div class="col-md-3 col-sm-6 col-xs-12">
+		<a href="<?=$BASE?>/auser">
+		<div class="info-box">
+			<span class="info-box-icon bg-fuchsia"><i class="fa fa-user"></i></span>
+			<div class="info-box-content">
+				<span class="info-box-text">User</span>
+				<span class="info-box-number"><?=@$cuser?></span>
+			</div>
+		</div>
+		</a>
+	</div>
+
+	<div class="col-xs-6 col-sm-8 col-md-8">
+		<div class="box box-primary">
+			<div class="box-body">
+				<div class="chart">
+					<canvas id="visitorChart" style="height: 200px;"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-6 col-sm-4 col-md-4">
+		<div class="box box-success">
+			<div class="box-body">
+				<ul class="nav nav-tabs" id="postTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="popular-tab" data-toggle="tab" href="#popular" role="tab" aria-controls="popular" aria-selected="true"><i class="fa fa-star"></i> Popular</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="latest-tab" data-toggle="tab" href="#latest" role="tab" aria-controls="latest" aria-selected="false"><i class="fa fa-plus-circle"></i> Latest</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="comment" aria-selected="false"><i class="fa fa-comment"></i> Comment</a>
+					</li>
+				</ul>
+				<div class="tab-content" id="postTabContent" style="margin-top: 5px;">
+					<div class="tab-pane fade show active" id="popular" role="tabpanel" aria-labelledby="popular-tab">
+						<ul class="list-group" style="height: 159px;overflow: auto;">
+						<?php if(@$popular && $popular!=null){
+							foreach($popular as $r){ ?>
+							<li class="list-group-item">
+								<a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=ucwords(strip_tags($r['title']))?>">
+									<?=ucwords($r['title'])?>
+								</a>
+								<span class="badge"><?=$r['hits']?></span>
+							</li>
+							<?php }
+						}?>
+						</ul>
+					</div>
+					<div class="tab-pane fade" id="latest" role="tabpanel" aria-labelledby="latest-tab">
+						<ul class="list-group" style="height: 159px;overflow: auto;">
+						<?php if(@latest && $latest!=null){
+							foreach($latest as $r){ ?>
+							<li class="list-group-item">
+								<a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=ucwords(strip_tags($r['title']))?>">
+									<?=ucwords($r['title'])?>
+								</a>
+							</li>
+							<?php }
+						}?>
+						</ul>
+					</div>
+					<div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
+						<ul class="list-group" style="height: 159px;overflow: auto;">
+						<?php if(@$comment && $comment!=null){
+							foreach($comment as $r){ ?>
+							<li class="list-group-item">
+								<?=$r['text']?>
+								<span class="badge"><?=ucwords($r['name'])?></span>
+							</li>
+							<?php }
+						}?>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="<?=$BASE?>/ui/plugin/Chart-1.0.2/chart.js"></script>
+
+<script type="text/javascript">
+	var _label = '<?=@$label?>';
+	var label = _label.split(',');
+	var _visitor = '<?=@$visitor?>';
+	var visitor = _visitor.split(',');
+	var _hits = '<?=@$hits?>';
+	var hits = _hits.split(',');
+
+	var visitorChartCanvas = $('#visitorChart').get(0).getContext('2d');
+	var visitorChart       = new Chart(visitorChartCanvas);
+	var visitorChartData = {
+		labels  : label,
+		datasets: [
+		{
+			label               : 'Visitor',
+			fillColor           : 'rgba(60,141,188,0.5)',
+			strokeColor         : 'rgba(60,141,188,0.8)',
+			pointColor          : '#3b8bba',
+			pointStrokeColor    : 'rgba(60,141,188,1)',
+			pointHighlightFill  : '#fff',
+			pointHighlightStroke: 'rgba(60,141,188,1)',
+			data                : visitor
+		},
+		{
+			label               : 'Hits',
+			fillColor           : 'rgba(210,214,222,0.5)',
+			strokeColor         : 'rgba(210,214,222,0.8)',
+			pointColor          : 'rgba(210,214,222,1)',
+			pointStrokeColor    : '#c1c7d1',
+			pointHighlightFill  : '#fff',
+			pointHighlightStroke: 'rgba(220,220,220,1)',
+			data                : hits
+		}
+		]
+	};
+
+	var visitorChartOptions = {
+		showScale               : true,
+		scaleShowGridLines      : false,
+		scaleGridLineColor      : 'rgba(0,0,0,.05)',
+		scaleGridLineWidth      : 1,
+		scaleShowHorizontalLines: true,
+		scaleShowVerticalLines  : true,
+		bezierCurve             : true,
+		bezierCurveTension      : 0.3,
+		pointDot                : true,
+		pointDotRadius          : 4,
+		pointDotStrokeWidth     : 1,
+		pointHitDetectionRadius : 20,
+		datasetStroke           : true,
+		datasetStrokeWidth      : 2,
+		datasetFill             : true,
+		legendTemplate          : '<ul class=\'<%=name.toLowerCase()%>-legend\'><% for (var i=0; i<datasets.length; i++){%><li><span style=\'background-color:<%=datasets[i].lineColor%>\'></span><%=datasets[i].label%></li><%}%></ul>',
+		maintainAspectRatio     : true,
+		responsive              : true
+	};
+	visitorChart.Line(visitorChartData, visitorChartOptions);
+</script>

@@ -1,0 +1,27 @@
+<div class="modal-header">
+	<h5 class="modal-title">View Data</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+	<table class="table-valign-top">
+		<tr>
+			<td>Options</td>
+			<td>:</td>
+			<td><?=@$data['options']?></td>
+		</tr>
+		<tr>
+			<td>Value</td>
+			<td>:</td>
+			<td>
+				<?php if(@$data['groups'] && $data['groups']=='image'){ ?>
+					<img src="<?=$BASE?>/images/thumb/<?=$data['value']?>">
+				<?php }else{ ?>
+					<?=@$data['value']?>
+				<?php } ?>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+</div>

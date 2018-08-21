@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-lg-12" id="breadcrumb">
+        <div class="box box-solid" style="margin-top:10px">
+            <div class="box-body">
+            <?php echo Rimba::instance()->getBreadcrumb();?>
+            <div style="clear:both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="pageBar">
+                    <div class="pageNav">
+                        <?php if(Selo::instance()->access('category',2)==true){ ?>
+                        <a class="btn btn-primary btn-flat" href="#" url="<?=$BASE?>/acategory/formAdd" onclick="LoadModalForm($(this).attr('url'));" title="Add">
+                        <i class="fa fa-plus-circle"></i>
+                        Add
+                        </a>
+                        <?php } ?>
+                    </div>
+                </div>
+                <div class="table-responsive clearfix">
+                    <table class="table table-bordered table-hover dataTable no-footer" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Action</th>
+                                <th>Title</th>
+                                <th>Seotitle</th>
+                                <th>Parent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var table = null;
+    var limit = "25";
+    $(document).ready(function() {
+        table = $('#dataTable').dataTable({
+            "sDom": '<"toolbar">rt<"clear"><"pesanpesan">tip',
+            "bJQueryUI": false, 
+            "iDisplayLength": limit,
+            "bAutoWidth": false,
+            "bProcessing": true,
+            "bServerSide": true,
+            "sServerMethod" : "POST",
+            "bScrollCollapse": true,
+            "sAjaxSource": "<?=$BASE?>/acategory/getDataJson",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                    {name: "s_name", value: $('#s_name').val()}
+                )
+            },
+            "columns": [
+                { "data": "no", "orderable": false, width:'4%', className:'text-center' },
+                { "data": "pilihan", "orderable": false, width:'8%' },
+                { "data": "title", "orderable": false },
+                { "data": "seotitle", "orderable": false },
+                { "data": "parent", "orderable": false }
+            ]
+        });
+
+        $('#s_name').on('keyup',function(){
+            table.fnFilter(this.value, "s_name");
+        });
+    });
+</script>

@@ -1,0 +1,73 @@
+<div class="modal-header">
+	<h5 class="modal-title"><?=(@$data['id'])?'Edit':'Add';?> Data</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<form id="formData" method="POST" action="<?=$BASE?>/atheme/saveData/<?=@$data['id']?>">
+<div class="modal-body">
+	<table class="table table-valign-top">
+		<tr>
+			<td>Title</td>
+			<td>:</td>
+			<td><input name="theme_title" class="form-control" value="<?=@$data['title']?>" required></td>
+		</tr>
+		<tr>
+			<td>Folder</td>
+			<td>:</td>
+			<td>
+				<input name="theme_folder" class="form-control" value="<?=@$data['folder']?>" onKeyPress="return angkadanhuruf(event,'_.0123456789abcdefghijklmnopqrstuvwxyz',this)" required>
+				<input name="theme_folder_old" type="hidden" value="<?=@$data['folder']?>">
+			</td>
+		</tr>
+		<tr>
+			<td>Author</td>
+			<td>:</td>
+			<td><input name="theme_author" class="form-control" value="<?=@$data['author']?>" required></td>
+		</tr>
+		<tr>
+			<td>Active</td>
+			<td>:</td>
+			<td>
+				<input name="theme_active" type="radio" value="N" <?=(@$data['active']&&$data['active']=='N')?'checked':'';?>> No
+				<input name="theme_active" type="radio" value="Y" <?=(@$data['active']&&$data['active']=='Y')?'checked':'';?>> Yes
+			</td>
+		</tr>
+		<tr>
+			<td>Module</td>
+			<td>:</td>
+			<td><input name="file" class="form-control" type="file"></td>
+	    </tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-default"><i class="fa fa-save"></i> Save</button>
+	<button type="reset" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+</div>
+</form>
+
+<script type="text/javascript">
+	$('#formData').submit(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr('action'),
+			type: 'POST',
+			data: new FormData(this),
+			contentType: false,
+			cache: false,
+			processData:false,
+			dataType: 'JSON',
+			success: function(data) {
+				console.log(data);
+				if(data._redirect==true) {
+					LoadPage(data._page);
+					LoadNotifikasi('success','<b>' + information + '</b><br>' + data._pesan);
+				}else {
+					LoadNotifikasi('danger','<b>' + warning + '</b><br>' + data._pesan);
+				}
+			}
+		});
+	});
+
+	$('#submit').on('click', function() {
+		$('#formData').submit();
+	});
+</script>

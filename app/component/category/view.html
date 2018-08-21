@@ -1,0 +1,57 @@
+<div class="modal-header">
+	<h5 class="modal-title">View Data</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+	<table class="table-valign-top">
+		<tr>
+			<td>Seotitle</td>
+			<td>:</td>
+			<td><?=@$data['seotitle']?></td>
+		</tr>
+		<tr>
+			<td>Title</td>
+			<td>:</td>
+			<td>
+				<ul>
+				<?php if(@$lang){
+					foreach($lang as $r){ ?>
+						<li><b><?=$r['title']?></b> : <?=$data['title'][$r['code']]?></li>
+					<?php }
+				}?>
+				</ol>
+			</td>
+		</tr>
+		<tr>
+			<td>Active</td>
+			<td>:</td>
+			<td><?=@$data['active']?></td>
+		</tr>
+		<tr>
+			<td>User Update</td>
+			<td>:</td>
+			<td><?=@$data['update_user']?></td>
+		</tr>
+		<tr>
+			<td>Last Update</td>
+			<td>:</td>
+			<td><?=@Selo::instance()->dateFormat($data['update_timestamp'])?></td>
+		</tr>
+		<tr>
+			<td>Picture / Icon</td>
+			<td>:</td>
+			<td><?php 
+				if(@$data['picture']){
+					if(strpos(' '.$data['picture'],'fa-')){
+						echo '<i class="fa '.$data['picture'].'"></i>';
+					}else{
+						echo '<img src="'.$BASE.'/images/thumb/'.$data['picture'].'">';
+					}
+				}
+			?></td>
+		</tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+</div>

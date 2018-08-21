@@ -1,0 +1,52 @@
+<div class="pagehding-sec">
+	<div class="pagehding-overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-heading">
+					<h1><?=Selo::instance()->setLang('testimoni')?></h1>
+					<?php echo Rimba::instance()->getBreadcrumb('ul','');?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container blog-classic-sec pt-100 pb-70">
+	<main role="main" class="container">
+		<div class="row">
+			<aside class="col-md-4 blog-sidebar">
+				<?=Rimba::instance()->sidebar('L')?>
+			</aside>
+			<div class="col-md-8 blog-main">
+				<div class="blog-testimoni">
+					<h1><?=Selo::instance()->setLang('testimoni')?></h1>
+					<?php if($data!=null){
+						foreach($data as $r){ ?>
+						<div class="single-testimonial2">
+							<p><?=$r['ttext']?></p>
+							<div class="testimonial2">
+								<div class="inner">
+									<div class="client-info">
+										<h2><?=$r['name']?></h2>
+										<h3><?=$r['job']?></h3>
+									</div>
+								</div>
+								<?php if($r['picture']!=null && $r['picture']!=''){ ?>
+								<div class="inner">
+									<div class="testimonial2-client-img">
+										<img src="<?=$BASE?>/images/thumb/<?=$r['picture']?>" alt="<?=$r['name']?>"/>
+									</div>
+								</div>
+								<?php }?>
+							</div>
+						</div>
+						<?php }
+					}?>
+				</div>
+				<div class="paging-area">
+					<?=Rimba::instance()->getPaging();?>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>

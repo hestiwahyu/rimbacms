@@ -1,0 +1,13 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php/$0 [PT,L]
+
+#Reformat ETAG
+FileETag MTime Size
+
+ErrorDocument 400 /errors
+ErrorDocument 401 /errors
+ErrorDocument 403 /errors
+ErrorDocument 404 /errors
+ErrorDocument 500 /errors

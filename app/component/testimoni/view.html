@@ -1,0 +1,45 @@
+<div class="modal-header">
+	<h5 class="modal-title">View Data</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+	<table class="table-valign-top">
+		<tr>
+			<td>Picture</td>
+			<td>:</td>
+			<td>
+				<?php if($data['picture']!=null && $data['picture']!=''){ ?>
+					<img class="blog-img" src="<?=$BASE?>/images/thumb/<?=$data['picture']?>" alt="<?=$data['name']?>">
+				<?php } ?>
+			</td>
+		</tr>
+		<tr>
+			<td>Name</td>
+			<td>:</td>
+			<td><?=@$data['name']?></td>
+		</tr>
+		<tr>
+			<td>Testimoni</td>
+			<td>:</td>
+			<td><?=@$data['ttext']?></td>
+		</tr>
+		<tr>
+			<td>Job</td>
+			<td>:</td>
+			<td><?=@$data['job']?></td>
+		</tr>
+		<tr>
+			<td>User Update</td>
+			<td>:</td>
+			<td><?=@$data['update_user']?></td>
+		</tr>
+		<tr>
+			<td>Last Update</td>
+			<td>:</td>
+			<td><?=@Selo::instance()->dateFormat($data['update_timestamp'])?></td>
+		</tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+</div>

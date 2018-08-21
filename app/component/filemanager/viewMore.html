@@ -1,0 +1,17 @@
+<?php if(@$data && $data!=null){
+	foreach($data as $r){?>
+		<div class="col-md-3">
+			<div class="img-thumbnail" title="<?=$r['title']?>">
+				<img src="<?=$BASE?>/images/thumb/gallery/<?=$r['picture']?>" alt="<?=$r['title']?>" onclick="setField('gallery/<?=$r['picture']?>')" data-dismiss="modal" aria-label="Close">
+				<div class="caption">
+					<div class="input-group">
+						<input class="form-control" value="<?=$BASE?>/images/gallery/<?=$r['picture']?>">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fa fa-link"></i></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php }
+} ?>

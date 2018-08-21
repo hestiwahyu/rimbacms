@@ -1,0 +1,60 @@
+<div class="p-3">
+	<h1><?=$title?></h1>
+	<div class="list-unstyled mb-0">
+		<ul class="nav nav-tabs" id="postTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="popular-tab" data-toggle="tab" href="#popular" role="tab" aria-controls="popular" aria-selected="true">Popular</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="latest-tab" data-toggle="tab" href="#latest" role="tab" aria-controls="latest" aria-selected="false">Latest</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="comment" aria-selected="false">Comment</a>
+			</li>
+		</ul>
+		<div class="tab-content" id="postTabContent">
+			<div class="tab-pane fade show active" id="popular" role="tabpanel" aria-labelledby="popular-tab">
+				<div class="list-group">
+					<?php if($popular!=null){
+						foreach($popular as $r){ ?>
+						<a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=ucwords(strip_tags($r['title']))?>" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1"><?=ucwords($r['title'])?></h5>
+							</div>
+							<small><?=$r['hits']?> <?=Selo::instance()->setLang('views')?>, <?=Rimba::instance()->getCountComment($r['id'])?> <?=Selo::instance()->setLang('comments')?></small>
+						</a>
+						<?php }
+					}?>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="latest" role="tabpanel" aria-labelledby="latest-tab">
+				<div class="list-group">
+					<?php if($latest!=null){
+						foreach($latest as $r){ ?>
+						<a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=ucwords(strip_tags($r['title']))?>" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1"><?=ucwords($r['title'])?></h5>
+							</div>
+							<small><?=date('F d, Y',strtotime($r['pdate']))?></small>
+						</a>
+						<?php }
+					}?>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
+				<div class="list-group">
+					<?php if($comment!=null){
+						foreach($comment as $r){ ?>
+						<div class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1"><?=ucwords($r['name'])?></h5>
+							</div>
+							<small><?=$r['text']?></small>
+						</div>
+						<?php }
+					}?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

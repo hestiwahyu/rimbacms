@@ -1,0 +1,102 @@
+<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+	<div class="col-md-6 px-0">
+		<?php
+		$headline = Rimba::instance()->getHeadline('1','publishdate DESC');
+		if($headline!=null){
+			foreach($headline as $r){ ?>
+			<h1 class="display-4 font-italic"><?=$r['title']?></h1>
+			<p class="lead my-3"><?=Selo::instance()->cutText($r['content'],150)?></p>
+			<p class="lead mb-0"><a href="<?=$BASE?>/post/<?=$r['seotitle']?>" class="text-white font-weight-bold" title="<?=$r['title']?>"><?=Selo::instance()->setLang('continue_reading')?></a></p>
+			<?php }
+		}?>
+	</div>
+</div>
+
+<div class="row mb-2">
+	<div class="col-md-6">
+		<div class="card flex-md-row mb-4 box-shadow h-md-250">
+			<?php
+			$kat_1 = Rimba::instance()->getCategoryBy('8');
+			$kat_title_1 = (@$kat_1['title'])?$kat_1['title']:'';
+			$post_1 = Rimba::instance()->getOneCategory('8');
+			if($post_1!=null){
+			?>
+			<div class="card-body d-flex flex-column align-items-start">
+				<strong class="d-inline-block mb-2 text-primary"><?=$kat_title_1?></strong>
+				<h3 class="mb-0">
+				<a class="text-dark" href="<?=$BASE?>/post/<?=$post_1['seotitle']?>" title="<?=$post_1['title']?>"><?=Selo::instance()->cutText($post_1['title'],15)?></a>
+				</h3>
+				<div class="mb-1 text-muted"><?=date('F d',strtotime($post_1['pdate']))?></div>
+				<p class="card-text mb-auto"><?=Selo::instance()->cutText($post_1['content'],100)?></p>
+				<a href="<?=$BASE?>/post/<?=$post_1['seotitle']?>" title="<?=$post_1['title']?>"><?=Selo::instance()->setLang('continue_reading')?></a>
+			</div>
+			<?php if($post_1['picture']!=null && $post_1['picture']!=''){ ?>
+			<img class="card-img-right flex-auto d-none d-md-block" src="<?=$BASE?>/images/thumb/<?=$post_1['picture']?>" alt="<?=$post_1['title']?>">
+			<?php } ?>
+			<?php } ?>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="card flex-md-row mb-4 box-shadow h-md-250">
+			<?php
+			$kat_2 = Rimba::instance()->getCategoryBy('9');
+			$kat_title_2 = (@$kat_2['title'])?$kat_2['title']:'';
+			$post_2 = Rimba::instance()->getOneCategory('9');
+			if($post_2!=null){
+			?>
+			<div class="card-body d-flex flex-column align-items-start">
+				<strong class="d-inline-block mb-2 text-success"><?=$kat_title_2?></strong>
+				<h3 class="mb-0">
+				<a class="text-dark" href="<?=$BASE?>/post/<?=$post_2['seotitle']?>" title="<?=$post_2['title']?>"><?=Selo::instance()->cutText($post_2['title'],15)?></a>
+				</h3>
+				<div class="mb-1 text-muted"><?=date('F d',strtotime($post_2['pdate']))?></div>
+				<p class="card-text mb-auto"><?=Selo::instance()->cutText($post_2['content'],100)?></p>
+				<a href="<?=$BASE?>/post/<?=$post_2['seotitle']?>" title="<?=$post_2['title']?>"><?=Selo::instance()->setLang('continue_reading')?></a>
+			</div>
+			<?php if($post_2['picture']!=null && $post_2['picture']!=''){ ?>
+			<img class="card-img-right flex-auto d-none d-md-block" src="<?=$BASE?>/images/thumb/<?=$post_2['picture']?>" alt="<?=$post_2['title']?>">
+			<?php } ?>
+			<?php } ?>
+		</div>
+	</div>
+</div>
+
+<main role="main" class="container">
+	<div class="row">
+		<div class="col-md-8 blog-main">
+			<h3 class="pb-3 mb-4 font-italic border-bottom">
+			<?=Selo::instance()->setLang('latest_post')?>
+			</h3>
+
+			<?php
+			$posts = Rimba::instance()->getPost('5','publishdate DESC');
+			if($posts != null){
+				foreach($posts as $r){ ?>
+				<div class="blog-post">
+					<h1 class="blog-post-title">
+						<a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=$r['title']?>">
+							<?=$r['title']?>
+						</a>
+					</h1>
+					<p class="blog-post-meta"><?=date('F d, Y',strtotime($r['pdate']))?> by <a href="#"><?=$r['update_user']?></a></p>
+					<?php if($r['picture']!=null && $r['picture']!=''){ ?>
+					<img class="blog-img" src="<?=$BASE?>/images/<?=$r['picture']?>" alt="<?=$r['title']?>">
+					<?php }?>
+					<p><?=$r['content']?></p>
+					<p>Tag: <?=$r['tag']?></p>
+				</div>
+				<?php }
+			}else{ ?>
+				<p><?=Selo::instance()->setLang('post_is_empty')?></p>
+			<?php }?>
+
+			<nav class="blog-pagination text-center">
+				<a class="btn btn-outline-primary" href="<?=$BASE?>/post?page=2"><?=Selo::instance()->setLang('more')?></a>
+			</nav>
+		</div>
+
+		<aside class="col-md-4 blog-sidebar">
+			<?=Rimba::instance()->sidebar('R')?>
+		</aside>
+	</div>
+</main>

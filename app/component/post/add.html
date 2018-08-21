@@ -1,0 +1,230 @@
+<div class="row">
+    <div class="col-lg-12" id="breadcrumb">
+        <div class="box box-solid" style="margin-top:10px">
+            <div class="box-body">
+            	<?php echo Rimba::instance()->getBreadcrumb();?>
+            	<div style="clear:both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="formData" method="POST" action="<?=$BASE?>/apost/saveData/<?=@$data['id']?>">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="box box-primary">
+            <div class="box-body">
+            	<h2><?=$subtitle?></h2>
+				<table class="table table-valign-top">
+					<tr>
+						<td>Seotitle</td>
+						<td>:</td>
+						<td colspan="4"><input name="post_seotitle" class="form-control" value="<?=@$data['seotitle']?>" onKeyPress="return angkadanhuruf(event,'-_.0123456789abcdefghijklmnopqrstuvwxyz',this)" required></td>
+					</tr>
+					<tr>
+						<td>Content</td>
+						<td>:</td>
+						<td colspan="4">
+							<ul class="nav nav-tabs" id="pagesTab" role="tablist">
+							<?php if(@$lang){
+								$i = 1;
+								foreach($lang as $r){ 
+									$active = ($i==1)?'active':'';
+									?>
+									<li class="nav-item">
+										<a class="nav-link <?=$active?>" href="#<?=$r['code']?>" data-toggle="tab" role="tab" aria-controls="<?=$r['code']?>" aria-selected="true"><?=$r['title']?></a>
+									</li>
+								<?php $i++;}
+							}?>
+							</ul>
+							<div class="tab-content" id="pagesTabContent">
+								<?php if(@$lang){
+									$i = 1;
+									foreach($lang as $r){ 
+										$active = ($i==1)?'active':'';
+										?>
+										<input type="hidden" name="post_lang_code[<?=$r['code']?>]" value="<?=$r['code']?>">
+										<div class="tab-pane fade show <?=$active?>" id="<?=$r['code']?>" role="tabpanel" aria-labelledby="<?=$r['code']?>-tab">
+											<div class="form-group">
+												<label>Title</label>
+												<div>
+													<input type="text" class="form-control" name="post_title[<?=$r['code']?>]" value="<?=@$data['title'][$r['code']]?>">
+												</div>
+											</div>
+											<div class="form-group">
+												<label>Content</label>
+												<div>
+													<textarea name="post_content[<?=$r['code']?>]" class="form-control text_editor"><?=@$data['content'][$r['code']]?></textarea>
+												</div>
+											</div>
+										</div>
+										<?php $i++;}
+								}?>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Category</td>
+						<td>:</td>
+						<td colspan="4">
+							<?php if(@$cat){
+								foreach($cat as $r){ ?>
+								<span class="label">
+									<input type="checkbox" name="post_category[<?=$r['id']?>]" value="<?=$r['id']?>" <?=@$data['category'][$r['id']]?'checked':'';?>> <?=$r['title']?>
+								</span>
+								<?php }
+							}?>
+						</td>
+					</tr>
+					<tr>
+						<td>Tags</td>
+						<td>:</td>
+						<td colspan="4">
+							<input name="post_tag" id="post_tag" class="form-control" type="text" value="<?=@$data['tag']?>" style="min-width: 300px;">
+							<input name="post_tag2" type="hidden" value="<?=@$data['tag']?>">
+						</td>
+					</tr>
+					<tr>
+						<td>Date</td>
+						<td>:</td>
+						<td>
+							<div class="input-group">
+								<input name="post_date" id="post_date" class="form-control" value="<?=(@$data['pdate'])?$data['pdate']:date('Y-m-d');?>">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-calendar"></i></span>
+								</div>
+							</div>
+						</td>
+						<td>Time</td>
+						<td>:</td>
+						<td><input name="post_time" class="form-control" value="<?=@$data['ptime']?>" onKeyPress="return angkadanhuruf(event,':0123456789',this)" placeholder="00:00:00"></td>
+					</tr>
+					<tr>
+						<td>Picture</td>
+						<td>:</td>
+						<td>
+							<div class="input-group">
+								<input name="post_picture" id="post_picture" class="form-control" value="<?=@$data['picture']?>">
+								<div class="input-group-prepend">
+									<span class="input-group-text" url="<?=$BASE?>/afilemanager/viewData" onclick="LoadModalFileManager($(this).attr('url'),'modal-lg');setFieldId('post_picture')"><i class="fa fa-picture-o"></i></span>
+								</div>
+							</div>
+						</td>
+						<td>Picture Desc</td>
+						<td>:</td>
+						<td><input name="post_picture_desc" class="form-control" value="<?=@$data['picture_desc']?>"></td>
+					</tr>
+					<tr>
+						<td>Headline</td>
+						<td>:</td>
+						<td>
+							<input name="post_headline" type="radio" value="N" <?=(@$data['headline']&&$data['headline']=='N')?'checked':'';?>> No
+			        		<input name="post_headline" type="radio" value="Y" <?=(@$data['headline']&&$data['headline']=='Y')?'checked':'';?>> Yes
+						</td>
+						<td>Comment</td>
+						<td>:</td>
+						<td>
+							<input name="post_comment" type="radio" value="N" <?=(@$data['comment']&&$data['comment']=='N')?'checked':'';?>> No
+			        		<input name="post_comment" type="radio" value="Y" <?=(@$data['comment']&&$data['comment']=='Y')?'checked':'';?>> Yes
+						</td>
+					</tr>
+					<tr>
+						<td>Active</td>
+						<td>:</td>
+						<td colspan="4">
+							<input name="post_active" type="radio" value="N" <?=(@$data['active']&&$data['active']=='N')?'checked':'';?>> No
+			        		<input name="post_active" type="radio" value="Y" <?=(@$data['active']&&$data['active']=='Y')?'checked':'';?>> Yes
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="box-footer text-center">
+				<button type="submit" class="btn btn-default"><i class="fa fa-save"></i> Save</button>
+				<a href="#" url="<?=$BASE?>/apost" onclick="LoadPage($(this).attr('url'));" class="btn btn-primary"><i class="fa fa-remove"></i> Cancel</a>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+
+<!-- <textarea name="post_content_1" class="form-control text_editor" id="text_editor"></textarea> -->
+
+<script type="text/javascript">
+	$('#formData').submit(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr('action'),
+			type: 'POST',
+			data: $(this).serialize(),
+			dataType: 'JSON',
+			success: function(data) {
+				if(data._redirect==true) {
+					LoadPage(data._page);
+					LoadNotifikasi('success','<b>' + information + '</b><br>' + data._pesan);
+				}else {
+					LoadNotifikasi('danger','<b>' + warning + '</b><br>' + data._pesan);
+				}
+			}
+		});
+	});
+
+	$('#submit').on('click', function() {
+		$('#formData').submit();
+	});
+
+	textarea.ckeditor_basic('.text_editor');
+
+	$('#post_date').datepicker({
+		format:"yyyy-mm-dd",
+		autoclose:true
+	});
+
+	$(document).ready(function() {
+		var tag = '<?=$tag?>';
+		var jsonData = [];
+		var tags = tag.split(',');
+		for(var i=0;i<tags.length;i++) jsonData.push({id:tags[i],name:tags[i]});
+			var ms1 = $('#post_tag').tagSuggest({
+				data: jsonData,
+				sortOrder: 'name',
+				maxDropHeight: 200,
+				name: 'post_tag'
+			});
+	});
+
+// $.fn.insertAtCaret = function (text) {
+//     return this.each(function () {
+//         if (document.selection && this.tagName == 'TEXTAREA') {
+//             //IE textarea support
+//             this.focus();
+//             sel = document.selection.createRange();
+//             sel.text = text;
+//             this.focus();
+//             console.log('1');
+//         } else if (this.selectionStart || this.selectionStart == '0') {
+//             //MOZILLA/NETSCAPE support
+//             startPos = this.selectionStart;
+//             endPos = this.selectionEnd;
+//             scrollTop = this.scrollTop;
+//             this.value = this.value.substring(0, startPos) + text + this.value.substring(endPos, this.value.length);
+//             this.focus();
+//             this.selectionStart = startPos + text.length;
+//             this.selectionEnd = startPos + text.length;
+//             this.scrollTop = scrollTop;
+//             console.log('2');
+//         } else {
+//             // IE input[type=text] and other browsers
+//             this.value += text;
+//             this.focus();
+//             this.value = this.value; // forces cursor to end
+//             console.log('3');
+//         }
+//     });
+// };
+
+// function setTextarea(){
+// 	$('#text_editor').insertAtCaret('a');
+// }
+// $('#text_editor').insertAtCaret('a');
+</script>
+
+<!-- <button onclick="setTextarea()">a</button> -->

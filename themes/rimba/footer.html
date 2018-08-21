@@ -1,0 +1,106 @@
+<footer>
+	<div class="footer-sec">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<div class="footer-wedget-one">
+						<a href="<?=$BASE?>"><img src="<?=$BASE?>/images/<?=Rimba::instance()->setting('img_header')?>" alt=""></a>
+						<p><?=Rimba::instance()->setting('web_description')?></p>
+						<div class="footer-social-profile">
+							<ul>
+								<li><a href="https://facebook.com/RimbaMediaSb" target="blank"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="https://twitter.com/RimbaMediaSb" target="blank"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="https://plus.google.com/RimbaMediaSb" target="blank"><i class="fa fa-google-plus"></i></a></li>
+								<li><a href="<?=$BASE?>/about"><i class="fa fa-home"></i></a></li>
+								<li><a href="<?=$BASE?>/contacts"><i class="fa fa-phone"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="footer-widget-menu">
+						<h2><?=Selo::instance()->setLang('our_service')?></h2>
+						<ul>
+						<?php
+						$service = Rimba::instance()->getPostByCategory('service',4);
+						if($service!=null){
+							foreach($service as $r){ ?>
+							<li><a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=ucwords(strip_tags($r['title']))?>"><?=ucwords($r['title'])?></a></li>
+						<?php }
+						} ?>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="footer-widget-menu">
+						<h2><?=Selo::instance()->setLang('support_links')?></h2>
+						<ul>
+						<?php
+						$pages = Rimba::instance()->pages(6);
+						if($pages!=null){
+							foreach($pages as $r){ ?>
+							<li><a href="<?=$BASE?>/<?=$r['seotitle']?>" title="<?=ucwords(strip_tags($r['title']))?>"><?=ucwords($r['title'])?></a></li>
+						<?php }
+						} ?>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="footer-wedget-four">
+						<h2><?=Selo::instance()->setLang('contact_us')?></h2>
+						<div class="inner-box">
+							<div class="media">
+								<div class="inner-item">
+									<div class="media-left">
+										<span class="icon"><i class="fa fa-map-marker"></i> <?=Selo::instance()->setLang('address')?></span>
+									</div>
+									<div class="media-body">
+										<span class="inner-text"><?=Rimba::instance()->setting('address')?></span>
+									</div>
+								</div>
+							</div>
+							<div class="media">
+								<div class="inner-item">
+									<div class="media-left">
+										<span class="icon"><i class="fa fa-envelope-o"></i> <?=Selo::instance()->setLang('email')?></span>
+									</div>
+									<div class="media-body">
+										<span class="inner-text"><?=Rimba::instance()->setting('email')?></span>
+									</div>
+								</div>
+							</div>
+							<div class="media">
+								<div class="inner-item">
+									<div class="media-left">
+										<span class="icon"><i class="fa fa-phone"></i> <?=Selo::instance()->setLang('telephone')?></span>
+									</div>
+									<div class="media-body">
+										<span class="inner-text"><?=Rimba::instance()->setting('telephone')?></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer-bottom-sec">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="copy-right">
+						<p>© <?=Selo::instance()->setLang('copyright')?> <?=(date('Y')=='2018')?'2018':'2018 - '.date('Y');?> 
+							<!-- <span><a href="#">themeearth,</a></span> Designed by:<span> David Max</span> -->
+							<span><a href="<?=$BASE?>/about"><?=Rimba::instance()->setting('web_owner')?></a></span> <?=Selo::instance()->setLang('powered_by')?>: <span><a href="<?=$BASE?>/post/rimba-cms"><?=Rimba::instance()->setting('web_name')?></a></span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<script type="text/javascript">
+    equalheight('.single-post-title');
+</script>

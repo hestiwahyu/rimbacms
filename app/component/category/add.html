@@ -1,0 +1,96 @@
+<div class="modal-header">
+	<h5 class="modal-title"><?=(@$data['id'])?'Edit':'Add';?> Data</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<form id="formData" method="POST" action="<?=$BASE?>/acategory/saveData/<?=@$data['id']?>">
+<div class="modal-body">
+	<table class="table table-valign-top">
+		<tr>
+			<td>Seotitle</td>
+			<td>:</td>
+			<td><input name="category_seotitle" class="form-control" value="<?=@$data['seotitle']?>" onKeyPress="return angkadanhuruf(event,'_-.0123456789abcdefghijklmnopqrstuvwxyz',this)" required></td>
+		</tr>
+		<tr>
+			<td>Parent</td>
+			<td>:</td>
+			<td>
+				<select name="category_parent_id" class="form-control">
+					<option value="0">- Pilih -</option>
+					<?php if(@$cat){
+						foreach($cat as $r){ ?>
+						<option value="<?=$r['id']?>" <?=(@$data['parent_id']&&$data['parent_id']==$r['id'])?'selected':'';?>><?=$r['title']?></option>
+						<?php }
+					}?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Title</td>
+			<td>:</td>
+			<td>
+				<ul>
+				<?php if(@$lang){
+					foreach($lang as $r){ ?>
+					<li>
+						<input type="hidden" name="category_lang_code[<?=$r['code']?>]" class="form-control" value="<?=$r['code']?>">
+						<label><?=$r['title']?></label>
+						<div>
+							<input type="text" name="category_title[<?=$r['code']?>]" class="form-control" value="<?=@$data['title'][$r['code']]?>" required>
+						</div>
+					</li>
+					<?php }
+				}?>
+				</ol>
+			</td>
+		</tr>
+		<tr>
+			<td>Active</td>
+			<td>:</td>
+			<td>
+				<input name="category_active" type="radio" value="N" <?=(@$data['active']&&$data['active']=='N')?'checked':'';?>> No
+				<input name="category_active" type="radio" value="Y" <?=(@$data['active']&&$data['active']=='Y')?'checked':'';?>> Yes
+			</td>
+		</tr>
+		<tr>
+			<td>Picture / Icon</td>
+			<td>:</td>
+			<td>
+				<div class="input-group">
+					<input name="category_picture" id="category_picture" class="form-control" value="<?=@$data['picture']?>">
+					<div class="input-group-prepend">
+						<span class="input-group-text" url="<?=$BASE?>/afilemanager/viewData" onclick="LoadModalFileManager($(this).attr('url'),'modal-lg');setFieldId('category_picture')"><i class="fa fa-picture-o"></i></span>
+					</div>
+				</div>
+			</td>
+	    </tr>
+	</table>
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-default"><i class="fa fa-save"></i> Save</button>
+	<button type="reset" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+</div>
+</form>
+
+<script type="text/javascript">
+	$('#formData').submit(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: $(this).attr('action'),
+			type: 'POST',
+			data: $(this).serialize(),
+			dataType: 'JSON',
+			success: function(data) {
+				if(data._redirect==true) {
+					LoadPage(data._page);
+					LoadNotifikasi('success','<b>' + information + '</b><br>' + data._pesan);
+				}else {
+					LoadNotifikasi('danger','<b>' + warning + '</b><br>' + data._pesan);
+				}
+			}
+		});
+	});
+
+	$('#submit').on('click', function() {
+		$('#formData').submit();
+	});
+</script>

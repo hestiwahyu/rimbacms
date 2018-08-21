@@ -1,0 +1,46 @@
+<ul>
+	<li>
+		Menu
+		<?php echo Rimba::instance()->getMenu('','sitemap'); ?>
+	</li>
+	<li>
+		Category
+		<?=@$cat?>
+	</li>
+	<li>
+		Tag
+		<?php if(@$tag && $tag!=null){ ?>
+			<ul>
+			<?php foreach($tag as $r){ ?>
+				<li>
+					<a href="<?=$BASE?>/tag/<?=$r['seotitle']?>"><?=$r['title']?></a>
+				</li>
+			<?php } ?>
+			</ul>
+		<?php } ?>
+	</li>
+	<li>
+		Pages
+		<?php if(@$pages && $pages!=null){ ?>
+			<ul>
+			<?php foreach($pages as $r){ ?>
+				<li>
+					<a href="<?=$BASE?>/<?=$r['seotitle']?>"><?=$r['title']?></a>
+				</li>
+			<?php } ?>
+			</ul>
+		<?php } ?>
+	</li>
+	<li>
+		Post
+		<?php if(@$post && $post!=null){ ?>
+			<ul>
+			<?php foreach($post as $r){ ?>
+				<li>
+					<a href="<?=$BASE?>/post/<?=$r['seotitle']?>"><?=$r['title']?></a>
+				</li>
+			<?php } ?>
+			</ul>
+		<?php } ?>
+	</li>
+</ul>

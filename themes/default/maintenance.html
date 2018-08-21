@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<?php Rimba::instance()->meta();?>
+		<title><?=strip_tags($title)?> - <?=Rimba::instance()->setting('web_name')?></title>
+		<link rel="shortcut icon" href="<?=$BASE?>/images/thumb/<?=Rimba::instance()->setting('favicon')?>" >
+	</head>
+	<body style="background-image:url(<?=$BASE?>/images/<?=Rimba::instance()->setting('img_maintenance')?>);">
+	</body>
+</html>

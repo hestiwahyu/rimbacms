@@ -1,0 +1,15 @@
+<main role="main" class="container">
+	<div class="row">
+		<div class="col-md-8 blog-main">
+			<div class="blog-post">
+				<?php echo'getHeadLine($limit,$sort) : ';?>
+				<pre><?php print_r(Rimba::instance()->getHeadline('5','ASC'));?></pre>
+				<br><br>
+			</div>
+		</div>
+
+		<aside class="col-md-4 blog-sidebar">
+			<?=Rimba::instance()->sidebar('R')?>
+		</aside>
+	</div>
+</main>

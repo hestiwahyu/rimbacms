@@ -1,0 +1,114 @@
+<main role="main" class="container">
+	<div class="row">
+		<div class="col-md-8 blog-main">
+			<div class="blog-post">
+				<?php 
+				$id = '';
+				$tag = '';
+				$comment_active = 'T';
+				if($detail){
+					$data = Rimba::instance()->getPostBy();
+					if($data!=null){
+						?>
+						<h1 class="blog-post-title"><?=$data['title']?></h1>
+						<p class="blog-post-meta"><?=date('F d, Y',strtotime($data['pdate']))?> by <a href="#"><?=$data['update_user']?></a></p>
+						<?php if($data['picture']!=null && $data['picture']!=''){ ?>
+						<img class="blog-img" src="<?=$BASE?>/images/<?=$data['picture']?>" alt="<?=$data['title']?>">
+						<?php }?>
+						<p><?=$data['content']?></p>
+						<p>Tag: <?=$data['tag']?></p>
+						<?php
+						$id = $data['id'];
+						$tag = $data['tag'];
+						$comment_active = $data['comment'];
+					}else{
+						?>
+						<p><?=Selo::instance()->setLang('post_is_empty')?></p>
+						<?php
+					}
+				}else{
+					$data = Rimba::instance()->getListPostBy();
+					if($data!=null){
+						foreach($data as $r){
+							?>
+							<div class="row">
+								<?php if($r['picture']!=null && $r['picture']!=''){ ?>
+								<div class="col-sm-6 col-md-3">
+									<img class="blog-img" src="<?=$BASE?>/images/thumb/<?=$r['picture']?>" alt="<?=$r['title']?>">
+								</div>
+								<div class="col-sm-6 col-md-9">
+								<?php }else{ ?>
+								<div class="col-md-12">
+								<?php } ?>
+									<h3>
+										<a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=$r['title']?>">
+										<?=$r['title']?>
+										</a>
+									</h3>
+									<p><?=Selo::instance()->cutText($r['content'],250)?></p>
+								</div>
+							</div>
+							<?php
+						}
+					}else{
+						?>
+						<p>Tidak ada post.</p>
+						<?php
+					}
+				}?>
+			</div>
+
+			<?php if($detail){ ?>
+			<nav class="blog-pagination row">
+				<div class="col-md-6">
+				<?php 
+				$prev = Rimba::instance()->getPostByPrev($id);
+				if($prev!=null){ ?>
+					<a href="<?=$BASE?>/post/<?=$prev['seotitle']?>" title="<?=$prev['title']?>">&laquo; <?=$prev['title']?></a>
+				<?php }?>
+				</div>
+				<div class="col-md-6 text-right">
+				<?php 
+				$next = Rimba::instance()->getPostByNext($id);
+				if($next!=null){ ?>
+					<a href="<?=$BASE?>/post/<?=$next['seotitle']?>" title="<?=$next['title']?>"><?=$next['title']?> &raquo;</a>
+				<?php }?>
+				</div>
+			</nav>
+			<?php }else{
+				echo Rimba::instance()->getPaging();
+			}?>
+
+			<?php if($detail){
+				$relateds = Rimba::instance()->getRelatedPost($id,$tag,6); 
+				if($relateds != null){ ?>
+					<div class="blog-post">
+						<div class="row">
+						<?php foreach($relateds as $r){ ?>
+							<div class="col-md-4 col-sm-4 col-xs-6">
+								<h4>
+									<a href="<?=$BASE?>/post/<?=$r['seotitle']?>" title="<?=$r['title']?>">
+										<?=$r['title']?>
+									</a>
+								</h4>
+								<p><?=Selo::instance()->cutText($r['content'],50)?></p>
+							</div>
+						<?php } ?>
+						</div>
+					</div>
+				<?php }
+				if($comment_active != '' && $comment_active == 'Y'){ ?>
+					<div class="blog-post">
+						<p><b><?=Rimba::instance()->getCountComment($id)?> <?=Selo::instance()->setLang('comment')?> - <?=$data['title']?></b></p>
+						<?php
+						echo Rimba::instance()->getComment($id); ?>
+					</div>
+				<?php }
+			}?>
+		</div>
+
+		<aside class="col-md-4 blog-sidebar">
+			<?=Rimba::instance()->sidebar('R')?>
+		</aside>
+	</div>
+</main>

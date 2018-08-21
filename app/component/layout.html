@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><?=Rimba::instance()->setting('web_owner')?></title>
+    <link rel="shortcut icon" href="<?=$BASE?>/images/thumb/<?=Rimba::instance()->setting('favicon')?>" >
+    <link rel="stylesheet" type="text/css" href="<?=$BASE?>/ui/plugin/Bootstrap-4-4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="<?=$BASE?>/ui/plugin/Datepicker/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="<?=$BASE?>/ui/plugin/Tagsinput/custom-taginput.css"/>
+    <link rel="stylesheet" type="text/css" href="<?=$BASE?>/ui/css/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="<?=$BASE?>/ui/css/lte-admin.css">
+    <link rel="stylesheet" type="text/css" href="<?=$BASE?>/ui/css/lte-skins.css">
+    <link rel="stylesheet" type="text/css" href="<?=$BASE?>/ui/css/lte-custom.css">
+    <link rel="stylesheet" type="text/css" href="<?=$BASE?>/ui/css/custom.css"/>
+    <script type="text/javascript" src="<?=$BASE?>/ui/plugin/jQuery-3.2.1/jquery-3.2.1.min.js"></script>
+  </head>
+  
+  <?php 
+  $_skin = Selo::instance()->getUser('skin');
+  ?>
+  <body id="body-theme" class="fixed <?=(@$_skin)?'skin-'.$_skin:'skin-blue-light';?> sidebar-mini">
+    <div class="wrapper">
+      <header class="main-header">
+        <a href="<?=$BASE?>/adashboard" class="logo">
+          <span class="logo-mini"><img src="<?=$BASE?>/images/thumb/<?=Rimba::instance()->setting('logo')?>" alt="Logo"></span>
+          <span class="logo-lg"><img src="<?=$BASE?>/images/thumb/<?=Rimba::instance()->setting('logo')?>" alt="Logo"> <?=Rimba::instance()->setting('web_name')?></span>
+        </a>
+
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+
+          <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+          </div>
+          <script type="text/javascript">
+          </script>
+
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <span>
+                    <?=date('l, d M Y')?> | <b><?=Selo::instance()->getUser('real_name')?></b>
+                  </span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="prof_popup" title="View Data" href="#" url="<?=$BASE?>/auser/viewData/<?=Selo::instance()->getUser('id')?>" onclick="LoadModalForm($(this).attr('url'));">
+                      <i class="fa fa-user"></i> Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a class="prof_popup" href="#" url="<?=$BASE?>/auser/formChangePassword/<?=Selo::instance()->getUser('id')?>" onclick="LoadModalForm($(this).attr('url'));" title="Change Password">
+                      <i class="fa fa-key"></i> Change Password
+                    </a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="<?=$BASE?>/home" target="blank">
+                      <i class="fa fa-home"></i> Front End
+                    </a>
+                  </li>
+                  <li>
+                    <a href="<?=$BASE?>/logout">
+                      <i class="fa fa-power-off"></i> Logout
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div  id="side_menu" >
+            <?php echo Rimba::instance()->getMenu('sidebar-menu','collapse','dashboard'); ?>
+          </div>
+          <div id="side_menu_mobile" class="side_nav grid_3 push_down" style="display:none;">
+            <?php echo Rimba::instance()->getMenu('sidebar-menu','collapse','dashboard'); ?>
+          </div>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <div class="col-lg-12" id="breadcrumb">
+            </div>
+          </div>
+
+          <div id="setPage"></div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b><?=Rimba::instance()->setting('web_name')?></b> <?=Rimba::instance()->setting('app_version')?> <?=Rimba::instance()->setting('app_name')?> <b><?=Rimba::instance()->setting('region_state')?></b>
+        </div>
+        <!-- Default to the left -->
+        Copyright &copy; <strong><?php $year = Rimba::instance()->setting('app_year'); echo$year;?><?=($year!=date('Y'))?' - '.date('Y'):'';?> <a href="<?=Rimba::instance()->setting('web_url')?>"><?=Rimba::instance()->setting('web_owner')?></a>.</strong> All rights reserved.
+      </footer>
+    </div>
+  </body>
+
+  <script type="text/javascript" src="<?=$BASE?>/ui/plugin/Popper-1.12.9/popper.min.js"></script>
+  <script type="text/javascript" src="<?=$BASE?>/ui/plugin/Bootstrap-4-4.0.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="<?=$BASE?>/ui/plugin/DataTables-1.10.16/datatables.min.js"></script>
+  <script type="text/javascript" src="<?=$BASE?>/ui/plugin/Slimscroll/jquery.slimscroll.min.js"></script>
+  <script type="text/javascript" src="<?=$BASE?>/ui/plugin/Typeahead-0.11.1/typeahead.bundle.min.js"></script>
+  <script type="text/javascript" src="<?=$BASE?>/ui/plugin/Datepicker/bootstrap-datepicker.js"></script>
+  <script type="text/javascript" src="<?=$BASE?>/ui/plugin/Tagsinput/custom-taginput.js"></script>
+  <script type="text/javascript" src="<?=$BASE?>/ui/js/setPage.js"></script>
+  <script type="text/javascript" src="<?=$BASE?>/ui/js/helper.js"></script>
+  <script type="text/javascript" src="<?=$BASE?>/ui/js/lte-admin.js"></script>
+  <!-- ckeditor -->
+  <script type="text/javascript" src="<?=$BASE?>/ui/plugin/Ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="<?=$BASE?>/ui/js/editor.js"></script>
+  <script type="text/javascript" src="<?=$BASE?>/ui/plugin/Ckeditor/adapters/jquery.js"></script>
+  <!-- ckeditor -->
+</html>
+
+<!-- load js -->
+<?php if(@$urlHome && $urlHome!=null){ ?>
+<script type="text/javascript">
+  $('#setPage').load('<?=$urlHome?>');
+</script>
+<?php } ?>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+      $('#sidebar').toggleClass('active');
+    });
+  });
+</script>
+
+
+<!-- notifikasi -->
+<div id="notifikasi"></div>
+
+<!-- modal form -->
+<div class="modal fade" id="CMSModalForm" tabindex="-1" role="dialog" aria-labelledby="CMSModalFormLabel">
+  <div class="modal-dialog modal-sm" role="document" id="modal-size">
+    <div class="modal-content" id="modal-element">
+    </div>
+  </div>
+</div>
+
+<!-- modal filemanager -->
+<div class="modal fade" id="CMSModalFileManager" tabindex="-1" role="dialog" aria-labelledby="CMSModalFileManagerLabel">
+  <div class="modal-dialog modal-sm" role="document" id="modal-size-filemanager">
+    <div class="modal-content" id="modal-element-filemanager">
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="CMSModalFileManagerAdd" tabindex="-1" role="dialog" aria-labelledby="CMSModalFileManagerAddLabel">
+  <div class="modal-dialog modal-sm" role="document" id="modal-size-filemanager-add">
+    <div class="modal-content" id="modal-element-filemanager-add">
+    </div>
+  </div>
+</div>
+
+<!-- modal hapus -->
+<div class="modal fade" id="CMSModalDel" tabindex="-1" role="dialog" aria-labelledby="CMSModalDelLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group text-center">
+          <i class="fa fa-5x fa-warning"></i>
+          <p>Do you want to delete?</p>
+        </div>
+        <div class="form-group text-center">
+          <div id="msg-modal"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" id="btn-del" class="btn btn-danger" onclick="LoadDelData($(this).attr('url'));"><i class="fa fa-trash"></i> Delete</a>
+        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
